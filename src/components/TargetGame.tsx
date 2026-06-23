@@ -15,45 +15,61 @@ interface WordNode {
 const CORRECT_CHAIN = [
   "AIorao",
   "Sito",
-  "Web",
-  "Rete",
-  "Retina",
-  "Fovea",
-  "Foveazione",
-  "Saccade",
-  "Movimento",
-  "Esercizio",
-  "Allenamento",
+  "Dito",
+  "Doti",
+  "Dati",
+  "Dita",
+  "Vita",
+  "Vista",
+  "Visto",
+  "Viso",
+  "Occhio",
   "Ortottica",
   "Visione"
 ];
+
+// Transitions metadata mapping the wordplay rules between words
+const TRANSITIONS: { [key: string]: string } = {
+  "AIorao-Sito": "Associazione (AIorao è un sito web)",
+  "Sito-Dito": "Cambio di una lettera (S → D)",
+  "Dito-Doti": "Anagramma (D-I-T-O → D-O-T-I)",
+  "Doti-Dati": "Cambio di una lettera (O → A)",
+  "Dati-Dita": "Anagramma (D-A-T-I → D-I-T-A)",
+  "Dita-Vita": "Cambio di una lettera (D → V)",
+  "Vita-Vista": "Aggiunta di una lettera (V-I-T-A + S = V-I-S-T-A)",
+  "Vista-Visto": "Cambio di una lettera (A → O)",
+  "Visto-Viso": "Sottrazione di una lettera (V-I-S-T-O meno T)",
+  "Viso-Occhio": "Associazione (l'organo visivo si trova nel viso)",
+  "Occhio-Ortottica": "Associazione (la scienza che si occupa di riabilitare l'occhio)",
+  "Ortottica-Visione": "Associazione (la finalità clinica dell'ortottica è la corretta visione binoculare)"
+};
 
 const NODES: WordNode[] = [
   // Ring 4 - Outermost (r = 200)
   { word: "AIorao", r: 200, angle: 0 },
   { word: "Sito", r: 200, angle: 72 },
-  { word: "Web", r: 200, angle: 144 },
+  { word: "Dito", r: 200, angle: 144 },
   { word: "Miopia", r: 200, angle: 216 },
-  { word: "Occhiali", r: 200, angle: 288 },
+  { word: "Lente", r: 200, angle: 288 },
   
   // Ring 3 (r = 155)
-  { word: "Rete", r: 155, angle: 36 },
-  { word: "Retina", r: 155, angle: 108 },
-  { word: "Lente", r: 155, angle: 180 },
-  { word: "Ottotipo", r: 155, angle: 252 },
+  { word: "Doti", r: 155, angle: 36 },
+  { word: "Dati", r: 155, angle: 108 },
+  { word: "Dita", r: 155, angle: 180 },
+  { word: "Prisma", r: 155, angle: 252 },
   { word: "Cervello", r: 155, angle: 324 },
   
   // Ring 2 (r = 115)
-  { word: "Fovea", r: 115, angle: 0 },
-  { word: "Foveazione", r: 115, angle: 90 },
-  { word: "Saccade", r: 115, angle: 180 },
-  { word: "Prisma", r: 115, angle: 270 },
+  { word: "Vita", r: 115, angle: 0 },
+  { word: "Vista", r: 115, angle: 90 },
+  { word: "Visto", r: 115, angle: 180 },
+  { word: "Ottotipo", r: 115, angle: 270 },
   
   // Ring 1 (r = 75)
-  { word: "Movimento", r: 75, angle: 45 },
-  { word: "Esercizio", r: 75, angle: 135 },
-  { word: "Allenamento", r: 75, angle: 225 },
-  { word: "Ortottica", r: 75, angle: 315 },
+  { word: "Viso", r: 75, angle: 45 },
+  { word: "Occhio", r: 75, angle: 135 },
+  { word: "Ortottica", r: 75, angle: 225 },
+  { word: "Saccade", r: 75, angle: 315 },
   
   // Center Bullseye (r = 0)
   { word: "Visione", r: 0, angle: 0 }
@@ -100,8 +116,9 @@ export const TargetGame: React.FC<TargetGameProps> = ({ onComplete, isCompleted 
         onComplete();
       }
     } else {
-      setErrorMsg(`"${word}" non è il collegamento corretto. Cerca una parola correlata a "${selectedPath[selectedPath.length - 1]}"!`);
-      setTimeout(() => setErrorMsg(null), 3000);
+      const lastWord = selectedPath[selectedPath.length - 1];
+      setErrorMsg(`"${word}" non si collega a "${lastWord}". Cerca un cambio di lettera, anagramma, aggiunta o associazione semantica!`);
+      setTimeout(() => setErrorMsg(null), 4000);
     }
   };
 
@@ -110,11 +127,21 @@ export const TargetGame: React.FC<TargetGameProps> = ({ onComplete, isCompleted 
     setErrorMsg(null);
   };
 
+  // Helper to get the description of the last link made
+  const getLastTransitionText = () => {
+    if (selectedPath.length < 2) return null;
+    const prev = selectedPath[selectedPath.length - 2];
+    const curr = selectedPath[selectedPath.length - 1];
+    return TRANSITIONS[`${prev}-${curr}`] || "Associazione";
+  };
+
+  const lastTransition = getLastTransitionText();
+
   return (
     <div className="target-container">
       <h2 className="game-title">Il Bersaglio</h2>
       <p className="game-subtitle">
-        Crea la catena ortottica corretta. Clicca sui cerchi concentrici procedendo dall'esterno (<strong>AIorao</strong>) fino al centro rosso (<strong>Visione</strong>)!
+        Crea la catena ortottica corretta. Clicca sulle parole procedendo dall'esterno (<strong>AIorao</strong>) al centro (<strong>Visione</strong>) sfruttando <strong>anagrammi</strong>, <strong>cambi di lettera</strong> (+/-) o **associazioni**!
       </p>
 
       {errorMsg && (
@@ -185,7 +212,7 @@ export const TargetGame: React.FC<TargetGameProps> = ({ onComplete, isCompleted 
             const width = isEnd ? 55 : node.word.length * 8 + 16;
             const height = 24;
 
-            // Center node (Visione) is drawn inside the red bullseye without a box, or with a transparent box
+            // Center node (Visione) is drawn inside the red bullseye without a box
             if (isEnd) {
               return (
                 <g 
@@ -256,8 +283,29 @@ export const TargetGame: React.FC<TargetGameProps> = ({ onComplete, isCompleted 
         </svg>
       </div>
 
+      {/* Connection mechanism hint */}
+      {lastTransition && (
+        <div style={{
+          backgroundColor: 'rgba(11, 69, 126, 0.05)',
+          border: '1px solid var(--se-blue)',
+          padding: '8px 12px',
+          borderRadius: '4px',
+          fontSize: '12px',
+          fontFamily: 'var(--font-typewriter)',
+          color: 'var(--se-blue)',
+          textAlign: 'center',
+          width: '100%',
+          maxWidth: '460px',
+          marginTop: '10px'
+        }}>
+          <strong>Ultimo step:</strong> {selectedPath[selectedPath.length - 2]} → {selectedPath[selectedPath.length - 1]} 
+          <br />
+          <span style={{ fontSize: '11px', opacity: 0.85 }}>{lastTransition}</span>
+        </div>
+      )}
+
       {/* Display path in a simple row below the target */}
-      <div className="target-path-visual" style={{ width: '100%', maxWidth: '460px' }}>
+      <div className="target-path-visual" style={{ width: '100%', maxWidth: '460px', marginTop: '10px' }}>
         {selectedPath.map((word, index) => (
           <React.Fragment key={word}>
             <span className={`path-step ${word === "AIorao" ? 'start' : word === "Visione" ? 'end' : ''}`} style={{ fontSize: '11px', padding: '3px 6px' }}>
