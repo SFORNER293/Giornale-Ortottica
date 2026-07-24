@@ -79,7 +79,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({ initialIssueId = 1
         <div style={{ border: '1px solid var(--border-color)', borderRadius: '6px', padding: '16px', backgroundColor: 'var(--paper-bg)' }}>
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: 'var(--se-red)', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <TargetIcon />
-            <span>1. Soluzione: Il Bersaglio (Catena Ottimale)</span>
+            <span>1. Soluzione: La Pista Cifrata (Sequenza dei Punti)</span>
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
             {activeIssue.targetData.correctChain.map((word, idx) => (

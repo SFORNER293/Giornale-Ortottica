@@ -1,20 +1,60 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { CheckCircle, HelpCircle } from 'lucide-react';
+import { CheckCircle, HelpCircle, Sparkles } from 'lucide-react';
 import type { CrosswordData, CrosswordClue } from '../data/issuesData';
 
 interface CrosswordGameProps {
   data: CrosswordData;
+  issueId?: number;
   onComplete: () => void;
   isCompleted: boolean;
 }
 
-export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, isCompleted }) => {
+const PREFILLED_POSITIONS: { [key: number]: { r: number; c: number; letter: string }[] } = {
+  1: [
+    { r: 0, c: 0, letter: 'O' },
+    { r: 4, c: 4, letter: 'T' },
+    { r: 6, c: 0, letter: 'P' },
+    { r: 12, c: 0, letter: 'F' },
+    { r: 14, c: 10, letter: 'V' }
+  ],
+  2: [
+    { r: 0, c: 0, letter: 'E' },
+    { r: 4, c: 4, letter: 'K' },
+    { r: 6, c: 0, letter: 'S' },
+    { r: 12, c: 0, letter: 'F' },
+    { r: 14, c: 0, letter: 'M' }
+  ],
+  3: [
+    { r: 0, c: 0, letter: 'S' },
+    { r: 4, c: 4, letter: 'F' },
+    { r: 6, c: 7, letter: 'S' },
+    { r: 12, c: 0, letter: 'M' },
+    { r: 14, c: 0, letter: 'G' }
+  ],
+  4: [
+    { r: 0, c: 0, letter: 'C' },
+    { r: 4, c: 4, letter: 'C' },
+    { r: 6, c: 0, letter: 'R' },
+    { r: 12, c: 0, letter: 'F' },
+    { r: 14, c: 0, letter: 'I' }
+  ]
+};
+
+export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, issueId = 1, onComplete, isCompleted }) => {
   const GRID_SIZE = data.gridSize || 15;
 
-  const [userLetters, setUserLetters] = useState<string[][]>(() =>
-    Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''))
-  );
-  
+  const createInitialGrid = () => {
+    const grid: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
+    const hints = PREFILLED_POSITIONS[issueId] || PREFILLED_POSITIONS[1];
+    hints.forEach(h => {
+      if (h.r < GRID_SIZE && h.c < GRID_SIZE) {
+        grid[h.r][h.c] = h.letter;
+      }
+    });
+    return grid;
+  };
+
+  const [userLetters, setUserLetters] = useState<string[][]>(createInitialGrid);
   const [selectedCell, setSelectedCell] = useState<{ r: number; c: number } | null>(null);
   const [activeDirection, setActiveDirection] = useState<'across' | 'down'>('across');
   const [completedWords, setCompletedWords] = useState<string[]>([]);
@@ -22,10 +62,10 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
   const inputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
   useEffect(() => {
-    setUserLetters(Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill('')));
+    setUserLetters(createInitialGrid());
     setSelectedCell(null);
     setCompletedWords([]);
-  }, [data, GRID_SIZE]);
+  }, [data, issueId, GRID_SIZE]);
 
   const { correctLetters, cellNumbers } = useMemo(() => {
     const letters: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
@@ -47,6 +87,11 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
 
   const isBlackCell = (r: number, c: number): boolean => {
     return correctLetters[r][c] === '';
+  };
+
+  const isPrefilledCell = (r: number, c: number): boolean => {
+    const hints = PREFILLED_POSITIONS[issueId] || PREFILLED_POSITIONS[1];
+    return hints.some(h => h.r === r && h.c === c);
   };
 
   const checkWordCorrect = (clue: CrosswordClue, currentGrid: string[][]) => {
@@ -241,15 +286,21 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
       {/* Top Header full width */}
-      <h2 className="game-title">Parole Crociate</h2>
-      <p className="game-subtitle">
-        Completa lo schema ortottico! Clicca su una casella o su una definizione per iniziare.
-      </p>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', color: 'var(--se-blue)', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontFamily: 'var(--font-typewriter)', marginBottom: '6px' }}>
+          <Sparkles size={14} color="var(--se-blue)" />
+          <span>Parole Crociate Facilitate — 5 Lettere di Aiuto Inserite nello Schema</span>
+        </div>
+        <h2 className="game-title">Parole Crociate Facilitate</h2>
+        <p className="game-subtitle">
+          Completa lo schema ortottico! Abbiamo inserito 5 lettere chiave come aiuto iniziale per guidare la soluzione.
+        </p>
+      </div>
 
       {isCompleted && (
         <div className="feedback-modal" style={{ position: 'relative', top: 0, transform: 'none', margin: '0 auto 10px auto' }}>
           <CheckCircle size={18} />
-          <span>Schema risolto brillantemente! Complimenti!</span>
+          <span>Schema facilitato risolto brillantemente! Complimenti!</span>
         </div>
       )}
 
@@ -279,6 +330,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
             {Array(GRID_SIZE).fill(null).map((_, r) => (
               Array(GRID_SIZE).fill(null).map((_, c) => {
                 const isBlack = isBlackCell(r, c);
+                const isPrefilled = isPrefilledCell(r, c);
                 const number = cellNumbers[r][c];
                 const letter = userLetters[r][c];
                 
@@ -292,6 +344,9 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
                     key={`${r}-${c}`} 
                     className={cellClass}
                     onClick={() => handleCellClick(r, c)}
+                    style={{
+                      backgroundColor: isPrefilled && !isActiveCell(r, c) && !isHighlightedCell(r, c) ? '#e0f2fe' : undefined
+                    }}
                   >
                     {!isBlack && number && <span className="cell-number">{number}</span>}
                     {!isBlack && (
@@ -306,6 +361,10 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
                         autoComplete="off"
                         autoCorrect="off"
                         spellCheck="false"
+                        style={{
+                          color: isPrefilled ? 'var(--se-blue)' : 'inherit',
+                          fontWeight: isPrefilled ? '900' : 'bold'
+                        }}
                       />
                     )}
                   </div>

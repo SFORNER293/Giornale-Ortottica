@@ -134,7 +134,7 @@ function App() {
           onClick={() => setPage(1)} 
           className={`toc-item ${page === 1 ? 'active' : ''} ${activeCompleted.target ? 'completed-icon' : ''}`}
         >
-          <span>Pag. 1: Il Bersaglio</span>
+          <span>Pag. 1: Pista Cifrata</span>
           {activeCompleted.target && <Check size={12} />}
         </button>
         <button 
@@ -215,6 +215,7 @@ function App() {
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <TargetGame 
               data={activeIssue.targetData}
+              issueId={activeIssue.id}
               onComplete={() => markGameComplete('target')} 
               isCompleted={activeCompleted.target} 
             />
@@ -224,6 +225,7 @@ function App() {
         {page === 2 && (
           <CrosswordGame 
             data={activeIssue.crosswordData}
+            issueId={activeIssue.id}
             onComplete={() => markGameComplete('crossword')} 
             isCompleted={activeCompleted.crossword} 
           />
