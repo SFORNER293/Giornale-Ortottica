@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ISSUES_DATA, type WeeklyIssue } from '../data/issuesData';
 import { BookCheck, CheckCircle2, Award, Sparkles, HelpCircle } from 'lucide-react';
+import { renderSceneContentHelper } from './SpotDifferencesGame';
 
 interface SolutionsPageProps {
   initialIssueId?: number;
@@ -144,19 +145,69 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({ initialIssueId = 1
           </div>
         </div>
 
-        {/* 4. SOLUZIONE DIFFERENZE */}
+        {/* 4. SOLUZIONE DIFFERENZE (VISUAL DRAWINGS WITH RED TARGET CIRCLES) */}
         <div style={{ border: '1px solid var(--border-color)', borderRadius: '6px', padding: '16px', backgroundColor: 'var(--paper-bg)' }}>
-          <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: '#b45309', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: '#b45309', margin: '0 0 12px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <CheckCircle2 size={18} />
-            <span>4. Soluzione: Le 7 Differenze nello Studio</span>
+            <span>4. Soluzione Visiva: Le 7 Differenze nello Studio</span>
           </h4>
-          <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '12px', fontFamily: 'var(--font-sans)', lineHeight: '1.6' }}>
-            {activeIssue.spotDifferencesData.differences.map(diff => (
-              <li key={diff.id}>
-                <strong>Particolare {diff.id}:</strong> {diff.description} (Coordinate: X={diff.x}, Y={diff.y})
-              </li>
-            ))}
-          </ol>
+          
+          <div className="differences-view" style={{ marginBottom: '16px' }}>
+            <div className="difference-frame">
+              <div className="difference-frame-title">DISEGNO A (SOLUZIONE)</div>
+              <div className="difference-svg-wrapper">
+                <svg viewBox="0 0 400 300" className="difference-svg">
+                  {renderSceneContentHelper(activeIssue.spotDifferencesData.sceneType, false)}
+                  {activeIssue.spotDifferencesData.differences.map(diff => (
+                    <circle
+                      key={`sol-a-${diff.id}`}
+                      cx={diff.x}
+                      cy={diff.y}
+                      r={diff.radius}
+                      stroke="#ef4444"
+                      strokeWidth="2.8"
+                      fill="rgba(239, 68, 68, 0.1)"
+                      strokeDasharray="4 2"
+                    />
+                  ))}
+                </svg>
+              </div>
+            </div>
+
+            <div className="difference-frame">
+              <div className="difference-frame-title">DISEGNO B (SOLUZIONE)</div>
+              <div className="difference-svg-wrapper">
+                <svg viewBox="0 0 400 300" className="difference-svg">
+                  {renderSceneContentHelper(activeIssue.spotDifferencesData.sceneType, true)}
+                  {activeIssue.spotDifferencesData.differences.map(diff => (
+                    <circle
+                      key={`sol-b-${diff.id}`}
+                      cx={diff.x}
+                      cy={diff.y}
+                      r={diff.radius}
+                      stroke="#ef4444"
+                      strokeWidth="2.8"
+                      fill="rgba(239, 68, 68, 0.1)"
+                      strokeDasharray="4 2"
+                    />
+                  ))}
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: 'white', padding: '12px', borderRadius: '4px', border: '1px stroke #cbd5e1' }}>
+            <strong style={{ fontFamily: 'var(--font-serif)', fontSize: '13px', color: 'var(--se-blue)', display: 'block', marginBottom: '6px' }}>
+              ELENCO DETTAGLIATO DEI 7 PARTICOLARI DIVERSI:
+            </strong>
+            <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '12px', fontFamily: 'var(--font-sans)', lineHeight: '1.6' }}>
+              {activeIssue.spotDifferencesData.differences.map(diff => (
+                <li key={diff.id}>
+                  <strong>Particolare {diff.id}:</strong> {diff.description}
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
 
         {/* 5. SOLUZIONE TRITTICO DI REBUS */}
