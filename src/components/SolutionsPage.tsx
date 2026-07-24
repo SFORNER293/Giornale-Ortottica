@@ -75,31 +75,23 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({ initialIssueId = 1
           </div>
         </div>
 
-        {/* 1. SOLUZIONE IL BERSAGLIO */}
+        {/* 1. SOLUZIONE LA PISTA CIFRATA */}
         <div style={{ border: '1px solid var(--border-color)', borderRadius: '6px', padding: '16px', backgroundColor: 'var(--paper-bg)' }}>
           <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '16px', color: 'var(--se-red)', margin: '0 0 10px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <TargetIcon />
-            <span>1. Soluzione: La Pista Cifrata (Sequenza dei Punti)</span>
+            <Sparkles size={18} color="var(--se-red)" />
+            <span>1. Soluzione: La Pista Cifrata ({activeIssue.id === 1 ? "L'Occhio Foveale" : activeIssue.id === 2 ? "Montatura di Prova e Prismi" : activeIssue.id === 3 ? "Il Sinottoforo" : "Forottero ed Ottotipo"})</span>
           </h4>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
-            {activeIssue.targetData.correctChain.map((word, idx) => (
-              <React.Fragment key={word}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', fontWeight: 'bold', backgroundColor: 'white', border: '1px solid var(--border-color)', padding: '3px 8px', borderRadius: '4px', color: idx === 0 ? 'var(--se-red)' : idx === activeIssue.targetData.correctChain.length - 1 ? 'var(--se-blue)' : 'black' }}>
-                  {word}
-                </span>
-                {idx < activeIssue.targetData.correctChain.length - 1 && <span style={{ color: 'var(--ink-secondary)', fontWeight: 'bold' }}>→</span>}
-              </React.Fragment>
-            ))}
+          <div style={{ fontSize: '12px', fontFamily: 'var(--font-mono)', fontWeight: 'bold', color: 'var(--se-blue)', marginBottom: '10px', backgroundColor: 'white', padding: '8px 12px', borderRadius: '4px', border: '1px stroke #e2e8f0' }}>
+            Sequenza Punti: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20
           </div>
           <div style={{ fontSize: '12px', fontFamily: 'var(--font-sans)', color: 'var(--ink-secondary)', backgroundColor: 'white', padding: '10px', borderRadius: '4px', border: '1px stroke #e2e8f0' }}>
-            <strong>Spiegazione dei Passaggi:</strong>
-            <ul style={{ margin: '6px 0 0 0', paddingLeft: '20px', lineHeight: '1.5' }}>
-              {Object.entries(activeIssue.targetData.transitions).map(([key, desc]) => (
-                <li key={key}>
-                  <strong>{key.replace('-', ' → ')}:</strong> {desc}
-                </li>
-              ))}
-            </ul>
+            <strong>Illustrazione Ortottica Svelata:</strong>
+            <div style={{ marginTop: '4px', lineHeight: '1.5', fontStyle: 'italic' }}>
+              {activeIssue.id === 1 && "Disegno anatomico del bulbo oculare con fovea centrale ad alta acuità e vie di fissazione."}
+              {activeIssue.id === 2 && "Montatura di prova ortottica graduata con alloggiamento per lenti e stecca dei prismi."}
+              {activeIssue.id === 3 && "Schema dello strumento a bracci snodati per la valutazione dei 3 Gradi di Worth."}
+              {activeIssue.id === 4 && "Apparecchio di rifrazione oftalmica abbinato al tabellone dell'ottotipo di Snellen."}
+            </div>
           </div>
         </div>
 
@@ -194,14 +186,3 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({ initialIssueId = 1
     </div>
   );
 };
-
-// Target Icon Helper
-function TargetIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="6" />
-      <circle cx="12" cy="12" r="2" />
-    </svg>
-  );
-}
