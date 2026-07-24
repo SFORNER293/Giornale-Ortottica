@@ -418,13 +418,36 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, issueId = 1,
           </div>
           
           {!isCompleted && (
-            <button 
-              className="nav-button" 
-              onClick={handleRevealAll}
-              style={{ marginTop: '15px', width: '100%', justifyContent: 'center', fontSize: '11px', padding: '6px' }}
-            >
-              Rivela Soluzione
-            </button>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '15px', flexDirection: 'column' }}>
+              {activeClue && (
+                <button 
+                  className="nav-button" 
+                  onClick={() => {
+                    setUserLetters(prev => {
+                      const nextGrid = prev.map(row => [...row]);
+                      for (let i = 0; i < activeClue.word.length; i++) {
+                        if (activeClue.direction === 'across') {
+                          nextGrid[activeClue.row][activeClue.col + i] = activeClue.word[i];
+                        } else {
+                          nextGrid[activeClue.row + i][activeClue.col] = activeClue.word[i];
+                        }
+                      }
+                      return nextGrid;
+                    });
+                  }}
+                  style={{ width: '100%', justifyContent: 'center', fontSize: '11px', padding: '6px', backgroundColor: '#e0f2fe', borderColor: '#7dd3fc', color: '#0369a1' }}
+                >
+                  Rivela Solo Parola Selezionata ({activeClue.number} {activeClue.direction === 'across' ? 'Orizz' : 'Vert'})
+                </button>
+              )}
+              <button 
+                className="nav-button" 
+                onClick={handleRevealAll}
+                style={{ width: '100%', justifyContent: 'center', fontSize: '11px', padding: '6px' }}
+              >
+                Rivela Intero Schema
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -165,7 +165,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali
         { number: 1, direction: 'across', word: 'ORTOTTICA', clue: 'Scienza e professione sanitaria della riabilitazione visiva.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'BUIO', clue: 'Assenza di luce che causa la midriasi pupillare.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'TESTI', clue: 'Tabelle e prove di lettura impiegate nelle visite ortottiche.', row: 4, col: 4 },
@@ -178,7 +177,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 12, direction: 'across', word: 'ERG', clue: 'Elettroretinogramma per registrare la risposta retinica.', row: 14, col: 6 },
         { number: 13, direction: 'across', word: 'VISUS', clue: 'Il valore di acuità visiva espresso in decimi.', row: 14, col: 10 },
 
-        // Verticali
         { number: 1, direction: 'down', word: 'OTTOTIPO', clue: 'Tabellone con lettere o simboli per misurare la vista.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'TRATTAMENTO', clue: 'Percorso terapeutico di esercizio e rieducazione visiva.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'AMBLIOPIA', clue: 'Deficit visivo monolaterale comunemente detto occhio pigro.', row: 0, col: 8 },
@@ -276,7 +274,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     slogan: "Perché allineare lo sguardo è un'arte che richiede la giusta diottria prismatica!",
     badgeColor: "#c22026",
     targetData: {
-      subtitle: "Collega i termini clinici partendo dall'OCCLUSORE per raggiungere lo STRABISMO attraverso passaggi teorici di diagnosi e terapia ortottica!",
+      subtitle: "Procedi dal primo termine esterno (OCCLUSORE) fino al centro (STRABISMO) collegando i concetti ortottici!",
       startWord: "Occlusore",
       endWord: "Strabismo",
       correctChain: [
@@ -317,7 +315,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali
         { number: 1, direction: 'across', word: 'ESOTROPIA', clue: 'Deviazione oculare manifesta verso l interno (convergente).', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'COVER', clue: 'Test fondamentale eseguito con occlusore per rilevare lo strabismo.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'KAPPA', clue: 'L angolo formato tra l asse visivo e l asse pupillare dell occhio.', row: 4, col: 4 },
@@ -328,7 +325,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 10, direction: 'across', word: 'TORSIONE', clue: 'Deviazione ciclotropica di rotazione attorno all asse visivo.', row: 12, col: 7 },
         { number: 11, direction: 'across', word: 'MICROTROPIA', clue: 'Piccola deviazione strabica manifesta inferiore a 5 diottrie.', row: 14, col: 0 },
 
-        // Verticali
         { number: 1, direction: 'down', word: 'ELEVAZIONE', clue: 'Movimento oculare verso l alto controllato dal retto superiore.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'ORTOFORIA', clue: 'Il perfetto allineamento degli assi visivi senza deviazioni.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'PARALISI', clue: 'Deficit motorio di un muscolo extraoculare d origine nervosa.', row: 0, col: 8 },
@@ -424,7 +420,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     slogan: "Dalla percezione simultanea alla fusione 3D: il magico mondo del Sinottoforo!",
     badgeColor: "#16a34a",
     targetData: {
-      subtitle: "Procedi dal SINOTTOFORO fino al centro (BINOCULARITÀ) percorrendo la teoria dei 3 Gradi di Worth e della fusione sensoriale!",
+      subtitle: "Procedi dal primo termine (SINOTTOFORO) al centro (BINOCULARITÀ) percorrendo i 3 Gradi di Worth!",
       startWord: "Sinottoforo",
       endWord: "Binocularità",
       correctChain: [
@@ -465,7 +461,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali
         { number: 1, direction: 'across', word: 'SINOTTOFORO', clue: 'Lo strumento principe per la diagnosi e terapia della visione binoculare.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'WORTH', clue: 'Lo scienziato che ha codificato i 3 gradi della visione binoculare.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'FUSIONE', clue: 'Secondo grado di Worth: unione mentale di due immagini simili.', row: 4, col: 4 },
@@ -476,7 +471,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 10, direction: 'across', word: 'LEONE', clue: 'Figura tipica della prima diapositiva del test di Worth.', row: 12, col: 6 },
         { number: 11, direction: 'across', word: 'GABBIA', clue: 'Figura contenitrice per testare la percezione simultanea.', row: 14, col: 0 },
 
-        // Verticali
         { number: 1, direction: 'down', word: 'SOGGETTIVO', clue: 'L angolo in cui il paziente sovrappone le due immagini al sinottoforo.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'SOPPRESSIONE', clue: 'Meccanismo corticale che cancella l immagine dell occhio deviato.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'ANOMALA', clue: 'Corrispondenza retinica in cui la fovea si associa a un punto extrafoveale.', row: 0, col: 8 },
@@ -522,7 +516,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
       items: [
         { id: 'a', title: "REBUS A", diagram: "11", expected: "SINOTTOFORO", solutionFormatted: "SINOTTOFORO", hint: "Lettere S I + Disegno del Numero Nove (V=TT) + Lettera O + Disegno del Foro", graphicDescription: "S I + [Disegno Nove (V=TT)] + O + [Disegno Foro/Galleria]" },
         { id: 'b', title: "REBUS B", diagram: "7", expected: "FUSIONE", solutionFormatted: "FUSIONE", hint: "Lettera F + Disegno del Fuso (O=I) + Lettere O N E", graphicDescription: "F + [Disegno Fuso (O=I)] + O N E" },
-        { id: 'c', title: "REBUS C", diagram: "6   7", expected: "RETINAANOMALA", solutionFormatted: "RETINA ANOMALA", hint: "Disegno della Rete (E=I) + N A + Disegno dell'Anatra (TRA=MALA)", graphicDescription: "[Disegno Rete (E=I)] + N A + [Disegno Anatra (TRA=MALA)]" }
+        { id: 'c', title: "REBUS C", diagram: "6   7", expected: "RETINAANOMALA", solutionFormatted: "RETINA ANOMALA", hint: "Disegno di DUE Rete (RETI) + N A + Disegno dell'Anatra (TRA=MALA)", graphicDescription: "[Disegno 2 Rete (RETI)] + N A + [Disegno Anatra (TRA=MALA)]" }
       ]
     },
     casesAndFactsData: {
@@ -569,7 +563,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     slogan: "Dalla rifrazione alla retina: esplora le meraviglie ottiche dell'occhio humano!",
     badgeColor: "#7c3aed",
     targetData: {
-      subtitle: "Collega i concetti ottici ed anatomici partendo dalla CORNEA ed arrivando all'OFTALMOLOGIA integrata!",
+      subtitle: "Procedi dal primo termine (CORNEA) fino al centro (OFTALMOLOGIA) collegando i concetti ottici!",
       startWord: "Cornea",
       endWord: "Oftalmologia",
       correctChain: [
@@ -610,7 +604,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali
         { number: 1, direction: 'across', word: 'CORNEA', clue: 'Prima lente trasparente ed avascolare della superficie oculare.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'MIOPIA', clue: 'Difetto di rifrazione con fuoco posizionato davanti alla retina.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'CRISTALLINO', clue: 'Lente intraoculare trasparente che varia potere per l accomodazione.', row: 4, col: 4 },
@@ -622,7 +615,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 11, direction: 'across', word: 'IRIDE', clue: 'Diaframma muscolare colorato dell occhio con la pupilla.', row: 14, col: 0 },
         { number: 12, direction: 'across', word: 'SCOTOMA', clue: 'Area di deficit o cecità all interno del campo visivo.', row: 14, col: 8 },
 
-        // Verticali
         { number: 1, direction: 'down', word: 'IPERMETROPIA', clue: 'Difetto di rifrazione in cui le immagini vanno a fuoco dietro la retina.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'ASTIGMATISMO', clue: 'Ametropia dovuta a curvatura asimmetrica dei meridiani corneali.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'PRESBIOPIA', clue: 'Calo fisiologico dell accomodazione che insorge dopo i 40 anni.', row: 0, col: 8 },

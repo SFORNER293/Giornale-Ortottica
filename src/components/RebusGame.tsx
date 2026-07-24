@@ -221,15 +221,18 @@ export const RebusGame: React.FC<RebusGameProps> = ({ data, issueId, onComplete,
       // RETINA ANOMALA
       return (
         <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-          {/* Rete (RETE E=I) */}
-          <g transform="translate(30, 30)">
-            <rect x="20" y="20" width="80" height="50" fill="none" stroke="#374151" strokeWidth="2" />
-            <path d="M 20 20 L 60 70 M 50 20 L 90 70 M 80 20 L 40 70" stroke="#9ca3af" strokeWidth="1" />
-            <text x="60" y="10" fill="var(--se-red)" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">E = I</text>
+          {/* Due Rete (RETI) */}
+          <g transform="translate(15, 30)">
+            {/* Rete 1 */}
+            <rect x="10" y="20" width="60" height="45" fill="none" stroke="#374151" strokeWidth="2" />
+            <path d="M 10 20 L 40 65 M 35 20 L 65 65 M 60 20 L 30 65" stroke="#9ca3af" strokeWidth="1" />
+            {/* Rete 2 */}
+            <rect x="80" y="20" width="60" height="45" fill="none" stroke="#374151" strokeWidth="2" />
+            <path d="M 80 20 L 110 65 M 105 20 L 135 65 M 130 20 L 100 65" stroke="#9ca3af" strokeWidth="1" />
           </g>
-          <text x="145" y="90" fill="var(--se-red)" fontSize="30" fontFamily="var(--font-serif)" fontWeight="bold">N A</text>
+          <text x="165" y="90" fill="var(--se-red)" fontSize="30" fontFamily="var(--font-serif)" fontWeight="bold">N A</text>
           {/* Anatra (ANATRA TRA=MALA) */}
-          <g transform="translate(230, 30)">
+          <g transform="translate(240, 30)">
             <ellipse cx="45" cy="60" rx="30" ry="20" fill="#fde047" stroke="#ca8a04" strokeWidth="2" />
             <circle cx="65" cy="40" r="14" fill="#fde047" stroke="#ca8a04" strokeWidth="2" />
             <path d="M 77 40 L 90 43 L 77 48 Z" fill="#f97316" />
