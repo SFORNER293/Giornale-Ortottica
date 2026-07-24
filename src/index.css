@@ -261,8 +261,11 @@ body {
   transition: background-color 0.15s ease;
 }
 
-.crossword-cell.block {
-  background-color: var(--border-color);
+.crossword-cell.block,
+.crossword-cell.black {
+  background-color: #1e293b !important;
+  cursor: default;
+  pointer-events: none;
 }
 
 .crossword-cell.selected {

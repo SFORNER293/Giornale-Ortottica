@@ -165,29 +165,31 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
+        // Orizzontali
         { number: 1, direction: 'across', word: 'ORTOTTICA', clue: 'Scienza e professione sanitaria della riabilitazione visiva.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'BUIO', clue: 'Assenza di luce che causa la midriasi pupillare.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'TESTI', clue: 'Tabelle e prove di lettura impiegate nelle visite ortottiche.', row: 4, col: 4 },
-        { number: 6, direction: 'across', word: 'PRISMA', clue: 'Lente a cuneo usata per deviare il fascio luminoso.', row: 6, col: 8 },
+        { number: 6, direction: 'across', word: 'PRISMA', clue: 'Lente a cuneo usata per deviare il fascio luminoso.', row: 6, col: 0 },
         { number: 7, direction: 'across', word: 'ACUTA', clue: 'Qualità della visione foveale distinta (10/10).', row: 8, col: 8 },
-        { number: 8, direction: 'across', word: 'SACCADI', clue: 'Movimenti oculari balistici veloci per spostare la fissazione.', row: 9, col: 0 },
-        { number: 9, direction: 'across', word: 'FOVEA', clue: 'Depressione centrale della retina ad altissima acuità.', row: 11, col: 0 },
-        { number: 10, direction: 'across', word: 'PEV', clue: 'Potenziali Evocati Visivi per lo studio della via ottica.', row: 11, col: 7 },
-        { number: 11, direction: 'across', word: 'LUCE', clue: 'Stimolo elettromagnetico primario percepito dalla retina.', row: 13, col: 0 },
-        { number: 12, direction: 'across', word: 'ERG', clue: 'Elettroretinogramma per registrare la risposta retinica.', row: 13, col: 6 },
-        { number: 13, direction: 'across', word: 'VISUS', clue: 'Il valore di acuità visiva espresso in decimi.', row: 14, col: 8 },
+        { number: 8, direction: 'across', word: 'SACCADI', clue: 'Movimenti oculari balistici veloci per spostare la fissazione.', row: 10, col: 0 },
+        { number: 9, direction: 'across', word: 'FOVEA', clue: 'Depressione centrale della retina ad altissima acuità.', row: 12, col: 0 },
+        { number: 10, direction: 'across', word: 'PEV', clue: 'Potenziali Evocati Visivi per lo studio della via ottica.', row: 12, col: 6 },
+        { number: 11, direction: 'across', word: 'LUCE', clue: 'Stimolo luminoso primario percepito dalla retina.', row: 14, col: 0 },
+        { number: 12, direction: 'across', word: 'ERG', clue: 'Elettroretinogramma per registrare la risposta retinica.', row: 14, col: 6 },
+        { number: 13, direction: 'across', word: 'VISUS', clue: 'Il valore di acuità visiva espresso in decimi.', row: 14, col: 10 },
 
+        // Verticali
         { number: 1, direction: 'down', word: 'OTTOTIPO', clue: 'Tabellone con lettere o simboli per misurare la vista.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'TRATTAMENTO', clue: 'Percorso terapeutico di esercizio e rieducazione visiva.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'AMBLIOPIA', clue: 'Deficit visivo monolaterale comunemente detto occhio pigro.', row: 0, col: 8 },
-        { number: 9, direction: 'down', word: 'CONI', clue: 'Fotorecettori della fovea per colori e visione diurna.', row: 9, col: 2 },
-        { number: 10, direction: 'down', word: 'DOPPIA', clue: 'Dicesi della percezione duplice o diplopia.', row: 9, col: 5 },
-        { number: 14, direction: 'down', word: 'FIXAZIONE', clue: 'Mantenimento stabile dello sguardo sull oggetto mirato.', row: 0, col: 12 },
-        { number: 15, direction: 'down', word: 'INSEGUIMENTO', clue: 'Movimento oculare lento continuo di inseguimento (smooth pursuit).', row: 2, col: 14 },
-        { number: 16, direction: 'down', word: 'BASTONCELLI', clue: 'Fotorecettori retinici per la visione crepuscolare e notturna.', row: 4, col: 10 },
+        { number: 14, direction: 'down', word: 'FIXAZIONE', clue: 'Mantenimento stabile dello sguardo sull oggetto mirato.', row: 0, col: 13 },
+        { number: 15, direction: 'down', word: 'INSEGUIMENTO', clue: 'Movimento oculare lento continuo di tracciamento.', row: 2, col: 14 },
+        { number: 16, direction: 'down', word: 'BASTONCELLI', clue: 'Fotorecettori retinici per la visione crepuscolare.', row: 4, col: 11 },
         { number: 17, direction: 'down', word: 'RETINA', clue: 'Membrana nervosa fotosensibile del bulbo oculare.', row: 6, col: 6 },
         { number: 18, direction: 'down', word: 'PUPILLA', clue: 'Foro centrale dell iride che varia diametro con la luce.', row: 8, col: 12 },
-        { number: 19, direction: 'down', word: 'OCCHIO', clue: 'L organo sensoriale primario dell apparato visivo.', row: 9, col: 9 }
+        { number: 19, direction: 'down', word: 'OCCHIO', clue: 'L organo sensoriale primario dell apparato visivo.', row: 9, col: 9 },
+        { number: 9, direction: 'down', word: 'CONI', clue: 'Fotorecettori della fovea per i colori e la visione diurna.', row: 10, col: 2 },
+        { number: 10, direction: 'down', word: 'DOPPIA', clue: 'Dicesi della percezione duplice o diplopia.', row: 10, col: 5 }
       ]
     },
     wordSearchData: {
@@ -315,29 +317,27 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
+        // Orizzontali
         { number: 1, direction: 'across', word: 'ESOTROPIA', clue: 'Deviazione oculare manifesta verso l interno (convergente).', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'COVER', clue: 'Test fondamentale eseguito con occlusore per rilevare lo strabismo.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'KAPPA', clue: 'L angolo formato tra l asse visivo e l asse pupillare dell occhio.', row: 4, col: 4 },
-        { number: 6, direction: 'across', word: 'STECCA', clue: 'Righello di prismi graduati per misurare la deviazione strabica.', row: 6, col: 8 },
+        { number: 6, direction: 'across', word: 'STECCA', clue: 'Righello di prismi graduati per misurare la deviazione strabica.', row: 6, col: 0 },
         { number: 7, direction: 'across', word: 'HESS', clue: 'Schermo diagnostico svizzero usato per le paresi oculomotorie.', row: 8, col: 8 },
-        { number: 8, direction: 'across', word: 'EXOTROPIA', clue: 'Deviazione oculare manifesta verso l esterno (divergente).', row: 9, col: 0 },
-        { number: 9, direction: 'across', word: 'FORIA', clue: 'Deviazione oculare latente che emerge interrompendo la fusione.', row: 11, col: 0 },
-        { number: 10, direction: 'across', word: 'TORSIONE', clue: 'Deviazione ciclotropica di rotazione attorno all asse visivo.', row: 11, col: 7 },
-        { number: 11, direction: 'across', word: 'MICROTROPIA', clue: 'Piccola deviazione strabica manifesta inferiore a 5 diottrie.', row: 13, col: 0 },
-        { number: 12, direction: 'across', word: 'ALTEZZA', clue: 'Disparità o deviazione verticale misurata al deviatometro.', row: 13, col: 8 },
-        { number: 13, direction: 'across', word: 'BAGOLINI', clue: 'Vetri striati usati per testare la soppressione sensoriale.', row: 14, col: 7 },
+        { number: 8, direction: 'across', word: 'EXOTROPIA', clue: 'Deviazione oculare manifesta verso l esterno (divergente).', row: 10, col: 0 },
+        { number: 9, direction: 'across', word: 'FORIA', clue: 'Deviazione oculare latente che emerge interrompendo la fusione.', row: 12, col: 0 },
+        { number: 10, direction: 'across', word: 'TORSIONE', clue: 'Deviazione ciclotropica di rotazione attorno all asse visivo.', row: 12, col: 7 },
+        { number: 11, direction: 'across', word: 'MICROTROPIA', clue: 'Piccola deviazione strabica manifesta inferiore a 5 diottrie.', row: 14, col: 0 },
 
+        // Verticali
         { number: 1, direction: 'down', word: 'ELEVAZIONE', clue: 'Movimento oculare verso l alto controllato dal retto superiore.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'ORTOFORIA', clue: 'Il perfetto allineamento degli assi visivi senza deviazioni.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'PARALISI', clue: 'Deficit motorio di un muscolo extraoculare d origine nervosa.', row: 0, col: 8 },
-        { number: 9, direction: 'down', word: 'PRISMI', clue: 'Dispositivi ottici a cuneo usati per neutralizzare la deviazione.', row: 9, col: 2 },
-        { number: 10, direction: 'down', word: 'DIPLOPIA', clue: 'Percezione sdoppiata dell immagine nello strabismo insorto.', row: 9, col: 5 },
-        { number: 14, direction: 'down', word: 'OCCLUSORE', clue: 'Strumento a paletta per la copertura nell esecuzione del cover test.', row: 0, col: 12 },
+        { number: 14, direction: 'down', word: 'OCCLUSORE', clue: 'Strumento a paletta per la copertura nell esecuzione del cover test.', row: 0, col: 13 },
         { number: 15, direction: 'down', word: 'DEVIATOMETRO', clue: 'Apparecchio graduato per la misurazione dell angolo di deviazione.', row: 2, col: 14 },
-        { number: 16, direction: 'down', word: 'HYPERTROPIA', clue: 'Deviazione manifesta di un occhio verso l alto rispetto all altro.', row: 4, col: 10 },
+        { number: 16, direction: 'down', word: 'HYPERTROPIA', clue: 'Deviazione manifesta di un occhio verso l alto rispetto all altro.', row: 4, col: 11 },
         { number: 17, direction: 'down', word: 'SACCADE', clue: 'Movimento oculare rapido di fissazione diretto verso la mira.', row: 6, col: 6 },
         { number: 18, direction: 'down', word: 'CONVERGENZA', clue: 'Movimento simultaneo convergente degli occhi verso l interno.', row: 3, col: 2 },
-        { number: 19, direction: 'down', word: 'DIVERGENZA', clue: 'Movimento simultaneo divergente degli occhi verso l esterno.', row: 5, col: 0 }
+        { number: 19, direction: 'down', word: 'DIVERGENZA', clue: 'Movimento simultaneo divergente degli occhi verso l esterno.', row: 5, col: 10 }
       ]
     },
     wordSearchData: {
@@ -375,7 +375,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "Lettera C + Disegno Uovo (OVO V=V) + Lettera E R + Disegno Testa (A=T)", graphicDescription: "C + [Disegno Uovo (V=V)] + E R + [Disegno Testa (A=T)]" },
+        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "Lettera C + Disegno Uovo (OVO V=V) + Lettere E R + Disegno Testa (A=T)", graphicDescription: "C + [Disegno Uovo (V=V)] + E R + [Disegno Testa (A=T)]" },
         { id: 'b', title: "REBUS B", diagram: "9", expected: "ESOTROPIA", solutionFormatted: "ESOTROPIA", hint: "Lettera E + Disegno del Sole (LE=O) + Lettere T R + Disegno Tabellone (OPIA)", graphicDescription: "E + [Disegno Sole (LE=O)] + T R + [Disegno Ottotipo/OPIA]" },
         { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno di un Angolo + Lettere K A P P A", graphicDescription: "[Disegno Angolo] + K A P P A" }
       ]
@@ -465,29 +465,24 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
+        // Orizzontali
         { number: 1, direction: 'across', word: 'SINOTTOFORO', clue: 'Lo strumento principe per la diagnosi e terapia della visione binoculare.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'WORTH', clue: 'Lo scienziato che ha codificato i 3 gradi della visione binoculare.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'FUSIONE', clue: 'Secondo grado di Worth: unione mentale di due immagini simili.', row: 4, col: 4 },
         { number: 6, direction: 'across', word: 'STEREOPSI', clue: 'Terzo grado di Worth: percezione della profondità tridimensionale 3D.', row: 6, col: 7 },
         { number: 7, direction: 'across', word: 'OGGETTIVO', clue: 'L angolo reale di deviazione azzerato dal movimento dell occhio.', row: 8, col: 6 },
-        { number: 8, direction: 'across', word: 'PERCEZIONE', clue: 'Primo grado di Worth: la percezione simultanea (es. Leone nella Gabbia).', row: 9, col: 0 },
-        { number: 9, direction: 'across', word: 'MIRE', clue: 'Diapositive trasparenti illuminate inserite nei bracci del sinottoforo.', row: 11, col: 0 },
-        { number: 10, direction: 'across', word: 'LEONE', clue: 'Figura tipica della prima diapositiva del test di Worth.', row: 11, col: 6 },
-        { number: 11, direction: 'across', word: 'GABBIA', clue: 'Figura contenitrice per testare la percezione simultanea.', row: 13, col: 0 },
-        { number: 12, direction: 'across', word: 'FISSIONE', clue: 'Scissione percettiva dell immagine nei test fusionali.', row: 13, col: 7 },
-        { number: 13, direction: 'across', word: 'ANOMALIA', clue: 'Deviazione della corrispondenza retinica (CRA/ARC).', row: 14, col: 7 },
+        { number: 8, direction: 'across', word: 'PERCEZIONE', clue: 'Primo grado di Worth: la percezione simultanea (es. Leone nella Gabbia).', row: 10, col: 0 },
+        { number: 9, direction: 'across', word: 'MIRE', clue: 'Diapositive trasparenti illuminate inserite nei bracci del sinottoforo.', row: 12, col: 0 },
+        { number: 10, direction: 'across', word: 'LEONE', clue: 'Figura tipica della prima diapositiva del test di Worth.', row: 12, col: 6 },
+        { number: 11, direction: 'across', word: 'GABBIA', clue: 'Figura contenitrice per testare la percezione simultanea.', row: 14, col: 0 },
 
+        // Verticali
         { number: 1, direction: 'down', word: 'SOGGETTIVO', clue: 'L angolo in cui il paziente sovrappone le due immagini al sinottoforo.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'SOPPRESSIONE', clue: 'Meccanismo corticale che cancella l immagine dell occhio deviato.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'ANOMALA', clue: 'Corrispondenza retinica in cui la fovea si associa a un punto extrafoveale.', row: 0, col: 8 },
-        { number: 9, direction: 'down', word: 'DIOTTRIE', clue: 'Unità di misura dei bracci graduati del sinottoforo.', row: 9, col: 2 },
-        { number: 10, direction: 'down', word: 'FLASHING', clue: 'Tecnica di stimolazione luminosa alternata delle mire al sinottoforo.', row: 9, col: 5 },
-        { number: 14, direction: 'down', word: 'AMPIEZZA', clue: 'Escursione di fusione misurata in convergenza e divergenza.', row: 0, col: 12 },
+        { number: 14, direction: 'down', word: 'AMPIEZZA', clue: 'Escursione di fusione misurata in convergenza e divergenza.', row: 0, col: 13 },
         { number: 15, direction: 'down', word: 'DISPARITA', clue: 'Differenza retinica trasversale minima per attivare la stereopsi.', row: 2, col: 14 },
-        { number: 16, direction: 'down', word: 'SUPPRESSION', clue: 'Inibizione del segnale foveale dell occhio deviato.', row: 4, col: 10 },
-        { number: 17, direction: 'down', word: 'ARCOCROMATICO', clue: 'Riflesso o braccio articolato del sinottoforo.', row: 2, col: 2 },
-        { number: 18, direction: 'down', word: 'CORRISPONDENZA', clue: 'Associazione punto-punto tra le due aree retiniche.', row: 0, col: 14 },
-        { number: 19, direction: 'down', word: 'OCULARI', clue: 'Lenti di osservazione poste all estremità dei bracci.', row: 8, col: 12 }
+        { number: 16, direction: 'down', word: 'FLASHING', clue: 'Tecnica di stimolazione luminosa alternata delle mire al sinottoforo.', row: 6, col: 6 }
       ]
     },
     wordSearchData: {
@@ -615,29 +610,25 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
+        // Orizzontali
         { number: 1, direction: 'across', word: 'CORNEA', clue: 'Prima lente trasparente ed avascolare della superficie oculare.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'MIOPIA', clue: 'Difetto di rifrazione con fuoco posizionato davanti alla retina.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'CRISTALLINO', clue: 'Lente intraoculare trasparente che varia potere per l accomodazione.', row: 4, col: 4 },
-        { number: 6, direction: 'across', word: 'RETINA', clue: 'Membrana fotosensibile posteriore su cui si formano le immagini.', row: 6, col: 8 },
+        { number: 6, direction: 'across', word: 'RETINA', clue: 'Membrana fotosensibile posteriore su cui si formano le immagini.', row: 6, col: 0 },
         { number: 7, direction: 'across', word: 'MACULA', clue: 'Area centrale retinica adibita alla visione nitida dei dettagli.', row: 8, col: 8 },
-        { number: 8, direction: 'across', word: 'PERIMETRIA', clue: 'Esame strumentale per la mappa del campo visivo.', row: 9, col: 0 },
-        { number: 9, direction: 'across', word: 'FOVEOLA', clue: 'Centro assoluto della fovea privo di vasi ad acuità massima.', row: 11, col: 0 },
-        { number: 10, direction: 'across', word: 'SCLERA', clue: 'Guscio bianco opaco esterno di protezione del bulbo.', row: 11, col: 8 },
-        { number: 11, direction: 'across', word: 'IRIDE', clue: 'Diaframma muscolare colorato dell occhio con la pupilla.', row: 13, col: 0 },
-        { number: 12, direction: 'across', word: 'HUMPHREY', clue: 'Perimetro computerizzato standard di riferimento.', row: 13, col: 6 },
-        { number: 13, direction: 'across', word: 'SCOTOMA', clue: 'Area di deficit o cecità all interno del campo visivo.', row: 14, col: 8 },
+        { number: 8, direction: 'across', word: 'PERIMETRIA', clue: 'Esame strumentale per la mappa del campo visivo.', row: 10, col: 0 },
+        { number: 9, direction: 'across', word: 'FOVEOLA', clue: 'Centro assoluto della fovea privo di vasi ad acuità massima.', row: 12, col: 0 },
+        { number: 10, direction: 'across', word: 'SCLERA', clue: 'Guscio bianco opaco esterno di protezione del bulbo.', row: 12, col: 8 },
+        { number: 11, direction: 'across', word: 'IRIDE', clue: 'Diaframma muscolare colorato dell occhio con la pupilla.', row: 14, col: 0 },
+        { number: 12, direction: 'across', word: 'SCOTOMA', clue: 'Area di deficit o cecità all interno del campo visivo.', row: 14, col: 8 },
 
+        // Verticali
         { number: 1, direction: 'down', word: 'IPERMETROPIA', clue: 'Difetto di rifrazione in cui le immagini vanno a fuoco dietro la retina.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'ASTIGMATISMO', clue: 'Ametropia dovuta a curvatura asimmetrica dei meridiani corneali.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'PRESBIOPIA', clue: 'Calo fisiologico dell accomodazione che insorge dopo i 40 anni.', row: 0, col: 8 },
-        { number: 9, direction: 'down', word: 'TONOMETRO', clue: 'Strumento per la misurazione della pressione intraoculare IOP.', row: 9, col: 2 },
-        { number: 10, direction: 'down', word: 'VITREO', clue: 'Gel trasparente gelatinoso che riempie il cavo posteriore.', row: 9, col: 5 },
-        { number: 14, direction: 'down', word: 'FOROTTERO', clue: 'Strumento ottico a batterie di lenti per determinare la rifrazione.', row: 0, col: 12 },
-        { number: 15, direction: 'down', word: 'ACCOMODAZIONE', clue: 'Meccanismo dinamico di variazione del potere del cristallino.', row: 1, col: 14 },
-        { number: 16, direction: 'down', word: 'BUSTA', clue: 'Capsula lenticolare trasparente che racchiude il cristallino.', row: 4, col: 10 },
-        { number: 17, direction: 'down', word: 'FESSURA', clue: 'Lampada a fessura per l esame al biomicroscopio.', row: 6, col: 6 },
-        { number: 18, direction: 'down', word: 'DIOTTRIE', clue: 'Unità di misura del potere di rifrazione delle lenti ottiche.', row: 3, col: 2 },
-        { number: 19, direction: 'down', word: 'CONI', clue: 'Fotorecettori cromatici ad alta risoluzione della macula.', row: 9, col: 9 }
+        { number: 14, direction: 'down', word: 'FOROTTERO', clue: 'Strumento ottico a batterie di lenti per determinare la rifrazione.', row: 0, col: 13 },
+        { number: 15, direction: 'down', word: 'VITREO', clue: 'Gel trasparente gelatinoso che riempie il cavo posteriore.', row: 2, col: 14 },
+        { number: 16, direction: 'down', word: 'HUMPHREY', clue: 'Perimetro computerizzato standard di riferimento.', row: 6, col: 6 }
       ]
     },
     wordSearchData: {
@@ -689,7 +680,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
           history: "Anamnesi: Visione sfocata sia da lontano che durante la lettura da vicino, associata a colpi di sole e bagliori attorno ai segnali stradali notturni.",
           examination: "Esame Ortottico e Refrattivo: Autorefrattometria in ciclopegia: OD -2.25D sf -1.50D cil ax 90°; OS -2.00D sf -1.75D cil ax 85°. La topografia corneale evidenzia astigmatismo regolare secondo regola. La perimetria computerizzata di Humphrey risulta nei limiti della norma.",
           question: "Domanda Clinica: Qual è la diagnosi ametropica e la soluzione oftalmica per ridurre la fatica visiva?",
-          solution: "Diagnosi: Miopia associata ad Astigmatismo Misto Composito Secondo Regola. Soluzione Ottico-Ortottica: 1) Prescrizione di lenti oftalmiche sfero-cilindriche negative ad alto indice con trattamento antiriflesso e filtro per la luce blu; 2) Esercizi ortottici di flessibilità accomodativa (stampa di flipper) per prevenire lo spasmo accomodativo durante lo studio prolungato."
+          solution: "Diagnosi: Miopia associata ad Astigmatismo Misto Composito Secondo Regola. Soluzione Ortottico-Ottica: 1) Prescrizione di lenti oftalmiche sfero-cilindriche negative ad alto indice con trattamento antiriflesso e filtro per la luce blu; 2) Esercizi ortottici di flessibilità accomodativa (stampa di flipper) per prevenire lo spasmo accomodativo durante lo studio prolungato."
         }
       ],
       deepDives: [

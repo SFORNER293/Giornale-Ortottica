@@ -21,14 +21,12 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
 
   const inputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
-  // Reset letters when data changes
   useEffect(() => {
     setUserLetters(Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill('')));
     setSelectedCell(null);
     setCompletedWords([]);
   }, [data, GRID_SIZE]);
 
-  // Compute correct letters matrix and cell numbers dynamically
   const { correctLetters, cellNumbers } = useMemo(() => {
     const letters: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
     const numbers: (number | null)[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
@@ -241,39 +239,41 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
   };
 
   return (
-    <div className="crossword-container">
-      <div style={{ flex: '1.2' }}>
-        <h2 className="game-title">Parole Crociate</h2>
-        <p className="game-subtitle">
-          Completa lo schema ortottico! Clicca su una casella o su una definizione per iniziare.
-        </p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
+      {/* Top Header full width */}
+      <h2 className="game-title">Parole Crociate</h2>
+      <p className="game-subtitle">
+        Completa lo schema ortottico! Clicca su una casella o su una definizione per iniziare.
+      </p>
 
-        {isCompleted && (
-          <div className="feedback-modal" style={{ position: 'relative', top: 0, transform: 'none', margin: '0 auto 15px auto' }}>
-            <CheckCircle size={18} />
-            <span>Schema risolto brillantemente! Complimenti!</span>
-          </div>
-        )}
+      {isCompleted && (
+        <div className="feedback-modal" style={{ position: 'relative', top: 0, transform: 'none', margin: '0 auto 10px auto' }}>
+          <CheckCircle size={18} />
+          <span>Schema risolto brillantemente! Complimenti!</span>
+        </div>
+      )}
 
-        {activeClue && (
-          <div style={{
-            backgroundColor: 'var(--se-blue)',
-            color: 'white',
-            padding: '12px',
-            borderRadius: '6px',
-            marginBottom: '15px',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontFamily: 'var(--font-typewriter)'
-          }}>
-            <HelpCircle size={18} />
-            <span>{activeClue.number} {activeClue.direction === 'across' ? 'Orizzontale' : 'Verticale'}: {activeClue.clue}</span>
-          </div>
-        )}
+      {activeClue && (
+        <div style={{
+          backgroundColor: 'var(--se-blue)',
+          color: 'white',
+          padding: '12px 18px',
+          borderRadius: '6px',
+          marginBottom: '5px',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontFamily: 'var(--font-typewriter)'
+        }}>
+          <HelpCircle size={18} />
+          <span>{activeClue.number} {activeClue.direction === 'across' ? 'Orizzontale' : 'Verticale'}: {activeClue.clue}</span>
+        </div>
+      )}
 
+      {/* Two-Column Layout: Grid Left & Clues Right aligned at top of grid */}
+      <div className="crossword-container">
         <div className="crossword-grid-wrapper">
           <div className="crossword-grid">
             {Array(GRID_SIZE).fill(null).map((_, r) => (
@@ -283,7 +283,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
                 const letter = userLetters[r][c];
                 
                 let cellClass = "crossword-cell";
-                if (isBlack) cellClass += " black";
+                if (isBlack) cellClass += " block black";
                 else if (isActiveCell(r, c)) cellClass += " selected";
                 else if (isHighlightedCell(r, c)) cellClass += " highlighted";
 
@@ -293,12 +293,11 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
                     className={cellClass}
                     onClick={() => handleCellClick(r, c)}
                   >
-                    {!isBlack && number && <span className="crossword-cell-number">{number}</span>}
+                    {!isBlack && number && <span className="cell-number">{number}</span>}
                     {!isBlack && (
                       <input
                         ref={(el) => { inputRefs.current[`${r}-${c}`] = el; }}
                         type="text"
-                        className="crossword-cell-input"
                         value={letter}
                         onChange={(e) => handleInputChange(r, c, e.target.value)}
                         onKeyDown={(e) => handleKeyDown(r, c, e)}
@@ -315,60 +314,60 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, 
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="crossword-clues">
-        <div>
-          <h3 className="clues-section-title">Orizzontali</h3>
-          <ul className="clues-list">
-            {data.clues.filter(c => c.direction === 'across').map(c => {
-              const key = `${c.number}-${c.direction}`;
-              const isCompletedWord = completedWords.includes(key);
-              const isActive = activeClue && activeClue.number === c.number && activeClue.direction === c.direction;
-              
-              return (
-                <li 
-                  key={key} 
-                  className={`clue-item ${isCompletedWord ? 'completed' : ''} ${isActive ? 'active' : ''}`}
-                  onClick={() => handleClueClick(c)}
-                >
-                  <strong>{c.number}.</strong> {c.clue}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="crossword-clues">
+          <div>
+            <h3 className="clues-section-title">Orizzontali</h3>
+            <ul className="clues-list">
+              {data.clues.filter(c => c.direction === 'across').map(c => {
+                const key = `${c.number}-${c.direction}`;
+                const isCompletedWord = completedWords.includes(key);
+                const isActive = activeClue && activeClue.number === c.number && activeClue.direction === c.direction;
+                
+                return (
+                  <li 
+                    key={key} 
+                    className={`clue-item ${isCompletedWord ? 'completed' : ''} ${isActive ? 'active' : ''}`}
+                    onClick={() => handleClueClick(c)}
+                  >
+                    <span className="clue-number">{c.number}.</span> {c.clue}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div style={{ marginTop: '15px' }}>
+            <h3 className="clues-section-title">Verticali</h3>
+            <ul className="clues-list">
+              {data.clues.filter(c => c.direction === 'down').map(c => {
+                const key = `${c.number}-${c.direction}`;
+                const isCompletedWord = completedWords.includes(key);
+                const isActive = activeClue && activeClue.number === c.number && activeClue.direction === c.direction;
+
+                return (
+                  <li 
+                    key={key} 
+                    className={`clue-item ${isCompletedWord ? 'completed' : ''} ${isActive ? 'active' : ''}`}
+                    onClick={() => handleClueClick(c)}
+                  >
+                    <span className="clue-number">{c.number}.</span> {c.clue}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          
+          {!isCompleted && (
+            <button 
+              className="nav-button" 
+              onClick={handleRevealAll}
+              style={{ marginTop: '15px', width: '100%', justifyContent: 'center', fontSize: '11px', padding: '6px' }}
+            >
+              Rivela Soluzione
+            </button>
+          )}
         </div>
-
-        <div style={{ marginTop: '15px' }}>
-          <h3 className="clues-section-title">Verticali</h3>
-          <ul className="clues-list">
-            {data.clues.filter(c => c.direction === 'down').map(c => {
-              const key = `${c.number}-${c.direction}`;
-              const isCompletedWord = completedWords.includes(key);
-              const isActive = activeClue && activeClue.number === c.number && activeClue.direction === c.direction;
-
-              return (
-                <li 
-                  key={key} 
-                  className={`clue-item ${isCompletedWord ? 'completed' : ''} ${isActive ? 'active' : ''}`}
-                  onClick={() => handleClueClick(c)}
-                >
-                  <strong>{c.number}.</strong> {c.clue}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        
-        {!isCompleted && (
-          <button 
-            className="nav-button" 
-            onClick={handleRevealAll}
-            style={{ marginTop: 'auto', alignSelf: 'center', fontSize: '11px', padding: '4px 8px' }}
-          >
-            Rivela Soluzione
-          </button>
-        )}
       </div>
     </div>
   );
