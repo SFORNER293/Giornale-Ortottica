@@ -1,64 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { CheckCircle, HelpCircle } from 'lucide-react';
+import type { CrosswordData, CrosswordClue } from '../data/issuesData';
 
 interface CrosswordGameProps {
+  data: CrosswordData;
   onComplete: () => void;
   isCompleted: boolean;
 }
 
-interface Clue {
-  number: number;
-  direction: 'across' | 'down';
-  word: string;
-  clue: string;
-  row: number;
-  col: number;
-}
+export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, onComplete, isCompleted }) => {
+  const GRID_SIZE = data.gridSize || 15;
 
-const CLUES: Clue[] = [
-  // Across
-  { number: 1, direction: 'across', word: 'ORTOTTICA', clue: 'La scienza e professione sanitaria che si occupa di riabilitazione visiva.', row: 0, col: 0 },
-  { number: 4, direction: 'across', word: 'BUIO', clue: "L'assenza di luce che dilata la pupilla.", row: 2, col: 8 },
-  { number: 5, direction: 'across', word: 'TESTI', clue: 'Prove o letture utilizzate durante le visite ortottiche.', row: 4, col: 4 },
-  { number: 6, direction: 'across', word: 'PRISMA', clue: 'Lente speciale usata per misurare ed esercitare la deviazione oculare.', row: 6, col: 8 },
-  { number: 7, direction: 'across', word: 'ACUTA', clue: 'Così è la vista normale, definita anche nitida o visus 10/10.', row: 8, col: 8 },
-  { number: 8, direction: 'across', word: 'SACCADI', clue: 'I rapidi movimenti oculari di fissazione (verticali o orizzontali).', row: 9, col: 0 },
-  
-  // Down
-  { number: 1, direction: 'down', word: 'OTTOTIPO', clue: 'Tabellone con lettere o simboli per misurare l’acutezza visiva.', row: 0, col: 0 },
-  { number: 2, direction: 'down', word: 'TRATTAMENTO', clue: 'Il percorso terapeutico di esercizi per correggere un deficit visivo.', row: 0, col: 4 },
-  { number: 3, direction: 'down', word: 'AMBLIOPIA', clue: "Deficit visivo monolaterale comunemente chiamato 'occhio pigro'.", row: 0, col: 8 },
-  { number: 9, direction: 'down', word: 'CONI', clue: 'I fotorecettori retinici per la visione diurna e dei colori.', row: 9, col: 2 },
-  { number: 10, direction: 'down', word: 'DOPPIA', clue: 'Dicesi della visione duplicata, ovvero la diplopia.', row: 9, col: 5 },
-];
-
-const GRID_SIZE = 15;
-
-// Build correct letters grid
-const correctLetters: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
-CLUES.forEach(c => {
-  for (let i = 0; i < c.word.length; i++) {
-    if (c.direction === 'across') {
-      correctLetters[c.row][c.col + i] = c.word[i];
-    } else {
-      correctLetters[c.row + i][c.col] = c.word[i];
-    }
-  }
-});
-
-// Check if a cell is black
-const isBlackCell = (r: number, c: number): boolean => {
-  return correctLetters[r][c] === '';
-};
-
-// Map cell to clue number if it's the start
-const cellNumbers: (number | null)[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
-CLUES.forEach(c => {
-  cellNumbers[c.row][c.col] = c.number;
-});
-
-export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isCompleted }) => {
-  const [userLetters, setUserLetters] = useState<string[][]>(
+  const [userLetters, setUserLetters] = useState<string[][]>(() =>
     Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''))
   );
   
@@ -68,8 +21,37 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
 
   const inputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
-  // Check if a specific word is complete and correct
-  const checkWordCorrect = (clue: Clue, currentGrid: string[][]) => {
+  // Reset letters when data changes
+  useEffect(() => {
+    setUserLetters(Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill('')));
+    setSelectedCell(null);
+    setCompletedWords([]);
+  }, [data, GRID_SIZE]);
+
+  // Compute correct letters matrix and cell numbers dynamically
+  const { correctLetters, cellNumbers } = useMemo(() => {
+    const letters: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
+    const numbers: (number | null)[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
+
+    data.clues.forEach(c => {
+      numbers[c.row][c.col] = c.number;
+      for (let i = 0; i < c.word.length; i++) {
+        if (c.direction === 'across') {
+          if (c.col + i < GRID_SIZE) letters[c.row][c.col + i] = c.word[i];
+        } else {
+          if (c.row + i < GRID_SIZE) letters[c.row + i][c.col] = c.word[i];
+        }
+      }
+    });
+
+    return { correctLetters: letters, cellNumbers: numbers };
+  }, [data.clues, GRID_SIZE]);
+
+  const isBlackCell = (r: number, c: number): boolean => {
+    return correctLetters[r][c] === '';
+  };
+
+  const checkWordCorrect = (clue: CrosswordClue, currentGrid: string[][]) => {
     for (let i = 0; i < clue.word.length; i++) {
       const char = clue.direction === 'across' 
         ? currentGrid[clue.row][clue.col + i] 
@@ -79,10 +61,9 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
     return true;
   };
 
-  // Run checks when letters change
   useEffect(() => {
     const newlyCompleted: string[] = [];
-    CLUES.forEach(clue => {
+    data.clues.forEach(clue => {
       const wordKey = `${clue.number}-${clue.direction}`;
       if (checkWordCorrect(clue, userLetters)) {
         newlyCompleted.push(wordKey);
@@ -91,7 +72,6 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
 
     setCompletedWords(newlyCompleted);
 
-    // Check global crossword completion
     let allFilledCorrectly = true;
     for (let r = 0; r < GRID_SIZE; r++) {
       for (let c = 0; c < GRID_SIZE; c++) {
@@ -102,29 +82,25 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
       }
     }
 
-    if (allFilledCorrectly && !isCompleted) {
+    if (allFilledCorrectly && !isCompleted && newlyCompleted.length > 0) {
       onComplete();
     }
-  }, [userLetters]);
+  }, [userLetters, data.clues, correctLetters, GRID_SIZE]);
 
-  // Handle cell click
   const handleCellClick = (r: number, c: number) => {
     if (isBlackCell(r, c) || isCompleted) return;
     
     if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
-      // Toggle direction if clicking same cell
       setActiveDirection(prev => prev === 'across' ? 'down' : 'across');
     } else {
       setSelectedCell({ r, c });
     }
   };
 
-  // Determine cells to highlight as active word
   const getActiveWordCells = () => {
     if (!selectedCell) return [];
 
-    // Find the clue that covers the selected cell in the active direction
-    const matchingClue = CLUES.find(clue => {
+    const matchingClue = data.clues.find(clue => {
       if (clue.direction !== activeDirection) return false;
       if (activeDirection === 'across') {
         return clue.row === selectedCell.r && 
@@ -156,31 +132,6 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
   const isActiveCell = (r: number, c: number) => selectedCell && selectedCell.r === r && selectedCell.c === c;
   const isHighlightedCell = (r: number, c: number) => activeWordCells.some(cell => cell.r === r && cell.c === c);
 
-  // Input typing handler
-  const handleInputChange = (r: number, c: number, val: string) => {
-    if (isCompleted) return;
-    
-    const key = val.toUpperCase().slice(-1);
-    if (!/^[A-Z]$/.test(key) && key !== '') return;
-
-    const newGrid = userLetters.map((rowArr, rowIndex) => 
-      rowArr.map((colVal, colIndex) => {
-        if (rowIndex === r && colIndex === c) {
-          return key;
-        }
-        return colVal;
-      })
-    );
-
-    setUserLetters(newGrid);
-
-    // Move to next cell
-    if (key !== '') {
-      moveCursor(1);
-    }
-  };
-
-  // Focus navigation helper
   const moveCursor = (step: number) => {
     if (!selectedCell) return;
     let { r, c } = selectedCell;
@@ -206,10 +157,31 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
     }
   };
 
+  const handleInputChange = (r: number, c: number, val: string) => {
+    if (isCompleted) return;
+    
+    const key = val.toUpperCase().slice(-1);
+    if (!/^[A-Z]$/.test(key) && key !== '') return;
+
+    const newGrid = userLetters.map((rowArr, rowIndex) => 
+      rowArr.map((colVal, colIndex) => {
+        if (rowIndex === r && colIndex === c) {
+          return key;
+        }
+        return colVal;
+      })
+    );
+
+    setUserLetters(newGrid);
+
+    if (key !== '') {
+      moveCursor(1);
+    }
+  };
+
   const handleKeyDown = (r: number, c: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Backspace') {
       if (userLetters[r][c] === '') {
-        // Move back and delete
         moveCursor(-1);
       } else {
         const newGrid = userLetters.map((rowArr, rowIndex) => 
@@ -239,8 +211,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
     }
   };
 
-  // Selecting a clue focuses its first cell
-  const handleClueClick = (clue: Clue) => {
+  const handleClueClick = (clue: CrosswordClue) => {
     if (isCompleted) return;
     setSelectedCell({ r: clue.row, c: clue.col });
     setActiveDirection(clue.direction);
@@ -249,7 +220,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
 
   const getActiveClue = () => {
     if (!selectedCell) return null;
-    return CLUES.find(clue => {
+    return data.clues.find(clue => {
       if (clue.direction !== activeDirection) return false;
       if (activeDirection === 'across') {
         return clue.row === selectedCell.r && 
@@ -284,7 +255,6 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
           </div>
         )}
 
-        {/* Selected Clue Display */}
         {activeClue && (
           <div style={{
             backgroundColor: 'var(--se-blue)',
@@ -351,7 +321,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
         <div>
           <h3 className="clues-section-title">Orizzontali</h3>
           <ul className="clues-list">
-            {CLUES.filter(c => c.direction === 'across').map(c => {
+            {data.clues.filter(c => c.direction === 'across').map(c => {
               const key = `${c.number}-${c.direction}`;
               const isCompletedWord = completedWords.includes(key);
               const isActive = activeClue && activeClue.number === c.number && activeClue.direction === c.direction;
@@ -372,7 +342,7 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ onComplete, isComp
         <div style={{ marginTop: '15px' }}>
           <h3 className="clues-section-title">Verticali</h3>
           <ul className="clues-list">
-            {CLUES.filter(c => c.direction === 'down').map(c => {
+            {data.clues.filter(c => c.direction === 'down').map(c => {
               const key = `${c.number}-${c.direction}`;
               const isCompletedWord = completedWords.includes(key);
               const isActive = activeClue && activeClue.number === c.number && activeClue.direction === c.direction;

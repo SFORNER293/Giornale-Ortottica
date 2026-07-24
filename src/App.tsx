@@ -5,38 +5,58 @@ import { WordSearchGame } from './components/WordSearchGame';
 import { SpotDifferencesGame } from './components/SpotDifferencesGame';
 import { RebusGame } from './components/RebusGame';
 import { JokesAndFacts } from './components/JokesAndFacts';
+import { SolutionsPage } from './components/SolutionsPage';
+import { ISSUES_DATA, type WeeklyIssue } from './data/issuesData';
 import { 
   ChevronLeft, 
   ChevronRight, 
   Check, 
   Award, 
   ExternalLink,
-  BookOpen
+  BookOpen,
+  Calendar,
+  Sparkles,
+  BookCheck
 } from 'lucide-react';
 
 function App() {
+  const [selectedIssueId, setSelectedIssueId] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
-  const [completedGames, setCompletedGames] = useState<{ [key: string]: boolean }>({
-    target: false,
-    crossword: false,
-    wordsearch: false,
-    differences: false,
-    rebus: false
+
+  // Store completion state per issue
+  const [completedGamesByIssue, setCompletedGamesByIssue] = useState<{
+    [issueId: number]: { [gameKey: string]: boolean };
+  }>({
+    1: { target: false, crossword: false, wordsearch: false, differences: false, rebus: false },
+    2: { target: false, crossword: false, wordsearch: false, differences: false, rebus: false },
+    3: { target: false, crossword: false, wordsearch: false, differences: false, rebus: false },
+    4: { target: false, crossword: false, wordsearch: false, differences: false, rebus: false }
   });
 
+  const activeIssue: WeeklyIssue = ISSUES_DATA.find(i => i.id === selectedIssueId) || ISSUES_DATA[0];
+  const activeCompleted = completedGamesByIssue[selectedIssueId] || {
+    target: false, crossword: false, wordsearch: false, differences: false, rebus: false
+  };
+
   const markGameComplete = (gameKey: string) => {
-    setCompletedGames(prev => ({
+    setCompletedGamesByIssue(prev => ({
       ...prev,
-      [gameKey]: true
+      [selectedIssueId]: {
+        ...(prev[selectedIssueId] || {}),
+        [gameKey]: true
+      }
     }));
   };
 
-  const getCompletedCount = () => {
-    return Object.values(completedGames).filter(Boolean).length;
+  const getCompletedCount = (issueId: number) => {
+    const issueState = completedGamesByIssue[issueId] || {};
+    return Object.values(issueState).filter(Boolean).length;
   };
 
+  const currentCompletedCount = getCompletedCount(selectedIssueId);
+
   const nextPage = () => {
-    if (page < 6) setPage(p => p + 1);
+    if (page < 7) setPage(p => p + 1);
   };
 
   const prevPage = () => {
@@ -45,6 +65,45 @@ function App() {
 
   return (
     <div id="root">
+      {/* Top Edition Selector Bar */}
+      <div className="issue-selector-bar">
+        <div className="issue-selector-title">
+          <Calendar size={15} />
+          <span>Edizioni di Agosto 2026:</span>
+        </div>
+        <div className="issue-buttons-list">
+          {ISSUES_DATA.map((issue) => {
+            const isSelected = issue.id === selectedIssueId;
+            const completedCount = getCompletedCount(issue.id);
+            const isFullySolved = completedCount === 5;
+
+            return (
+              <button
+                key={issue.id}
+                onClick={() => {
+                  setSelectedIssueId(issue.id);
+                  if (page !== 7) setPage(1);
+                }}
+                className={`issue-select-btn ${isSelected ? 'active' : ''}`}
+                style={{
+                  borderColor: isSelected ? issue.badgeColor : 'var(--border-color)',
+                  backgroundColor: isSelected ? 'var(--paper-bg)' : 'rgba(255,255,255,0.7)'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span className="issue-badge" style={{ backgroundColor: issue.badgeColor }}>
+                    N. {issue.number}
+                  </span>
+                  <span className="issue-date-text">{issue.dateStr}</span>
+                  {isFullySolved && <span style={{ color: 'var(--success-color)', fontWeight: 'bold' }}>★</span>}
+                </div>
+                <div className="issue-sub-title">{issue.title}</div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Settimana Enigmistica Trademark Header */}
       <header className="se-header">
         <div className="se-header-top">
@@ -57,13 +116,15 @@ function App() {
         </h1>
         
         <div className="se-slogan">
-          La rivista di riabilitazione visiva che vanta innumerevoli tentativi di accomodazione!
+          "{activeIssue.slogan}"
         </div>
         
         <div className="se-header-bottom">
-          <span>Uscita Speciale</span>
-          <span style={{ color: 'var(--se-blue)' }}>N. 1 - Anno I</span>
-          <span>Prezzo: 1 Esercizio</span>
+          <span style={{ fontWeight: 'bold', color: activeIssue.badgeColor }}>
+            Uscita N. {activeIssue.number} - {activeIssue.dateStr}
+          </span>
+          <span style={{ color: 'var(--se-blue)' }}>Anno I - Edizione Speciale</span>
+          <span>Prezzo: 1 Esercizio Ortottico</span>
         </div>
       </header>
 
@@ -71,44 +132,52 @@ function App() {
       <nav className="toc-container">
         <button 
           onClick={() => setPage(1)} 
-          className={`toc-item ${page === 1 ? 'active' : ''} ${completedGames.target ? 'completed-icon' : ''}`}
+          className={`toc-item ${page === 1 ? 'active' : ''} ${activeCompleted.target ? 'completed-icon' : ''}`}
         >
           <span>Pag. 1: Il Bersaglio</span>
-          {completedGames.target && <Check size={12} />}
+          {activeCompleted.target && <Check size={12} />}
         </button>
         <button 
           onClick={() => setPage(2)} 
-          className={`toc-item ${page === 2 ? 'active' : ''} ${completedGames.crossword ? 'completed-icon' : ''}`}
+          className={`toc-item ${page === 2 ? 'active' : ''} ${activeCompleted.crossword ? 'completed-icon' : ''}`}
         >
           <span>Pag. 2: Cruciverba</span>
-          {completedGames.crossword && <Check size={12} />}
+          {activeCompleted.crossword && <Check size={12} />}
         </button>
         <button 
           onClick={() => setPage(3)} 
-          className={`toc-item ${page === 3 ? 'active' : ''} ${completedGames.wordsearch ? 'completed-icon' : ''}`}
+          className={`toc-item ${page === 3 ? 'active' : ''} ${activeCompleted.wordsearch ? 'completed-icon' : ''}`}
         >
           <span>Pag. 3: Crucipuzzle</span>
-          {completedGames.wordsearch && <Check size={12} />}
+          {activeCompleted.wordsearch && <Check size={12} />}
         </button>
         <button 
           onClick={() => setPage(4)} 
-          className={`toc-item ${page === 4 ? 'active' : ''} ${completedGames.differences ? 'completed-icon' : ''}`}
+          className={`toc-item ${page === 4 ? 'active' : ''} ${activeCompleted.differences ? 'completed-icon' : ''}`}
         >
           <span>Pag. 4: Differenze</span>
-          {completedGames.differences && <Check size={12} />}
+          {activeCompleted.differences && <Check size={12} />}
         </button>
         <button 
           onClick={() => setPage(5)} 
-          className={`toc-item ${page === 5 ? 'active' : ''} ${completedGames.rebus ? 'completed-icon' : ''}`}
+          className={`toc-item ${page === 5 ? 'active' : ''} ${activeCompleted.rebus ? 'completed-icon' : ''}`}
         >
           <span>Pag. 5: Il Rebus</span>
-          {completedGames.rebus && <Check size={12} />}
+          {activeCompleted.rebus && <Check size={12} />}
         </button>
         <button 
           onClick={() => setPage(6)} 
           className={`toc-item ${page === 6 ? 'active' : ''}`}
         >
           <span>Pag. 6: Letture & Humor</span>
+        </button>
+        <button 
+          onClick={() => setPage(7)} 
+          className={`toc-item ${page === 7 ? 'active' : ''}`}
+          style={{ borderColor: 'var(--se-red)', color: page === 7 ? 'white' : 'var(--se-red)', fontWeight: 'bold' }}
+        >
+          <BookCheck size={13} />
+          <span>Soluzioni Ufficiali</span>
         </button>
       </nav>
 
@@ -127,10 +196,16 @@ function App() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Award size={16} />
-          <span>Progressi Giornalino: <strong>{getCompletedCount()} / 5</strong> giochi risolti</span>
+          <span>Progressi Uscita N. {activeIssue.number}: <strong>{currentCompletedCount} / 5</strong> giochi risolti</span>
         </div>
-        {getCompletedCount() === 5 && (
-          <span style={{ color: 'var(--success-color)', fontWeight: 'bold' }}>★ Giornalino Completato! ★</span>
+        {currentCompletedCount === 5 ? (
+          <span style={{ color: 'var(--success-color)', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <Sparkles size={14} /> ★ Uscita N. {activeIssue.number} Completata! ★
+          </span>
+        ) : (
+          <span style={{ fontSize: '11px', opacity: 0.7 }}>
+            Tema: {activeIssue.theme}
+          </span>
         )}
       </div>
 
@@ -139,42 +214,52 @@ function App() {
         {page === 1 && (
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <TargetGame 
+              data={activeIssue.targetData}
               onComplete={() => markGameComplete('target')} 
-              isCompleted={completedGames.target} 
+              isCompleted={activeCompleted.target} 
             />
           </div>
         )}
         
         {page === 2 && (
           <CrosswordGame 
+            data={activeIssue.crosswordData}
             onComplete={() => markGameComplete('crossword')} 
-            isCompleted={completedGames.crossword} 
+            isCompleted={activeCompleted.crossword} 
           />
         )}
         
         {page === 3 && (
           <WordSearchGame 
+            data={activeIssue.wordSearchData}
             onComplete={() => markGameComplete('wordsearch')} 
-            isCompleted={completedGames.wordsearch} 
+            isCompleted={activeCompleted.wordsearch} 
           />
         )}
         
         {page === 4 && (
           <SpotDifferencesGame 
+            data={activeIssue.spotDifferencesData}
             onComplete={() => markGameComplete('differences')} 
-            isCompleted={completedGames.differences} 
+            isCompleted={activeCompleted.differences} 
           />
         )}
         
         {page === 5 && (
           <RebusGame 
+            data={activeIssue.rebusData}
+            issueId={activeIssue.id}
             onComplete={() => markGameComplete('rebus')} 
-            isCompleted={completedGames.rebus} 
+            isCompleted={activeCompleted.rebus} 
           />
         )}
 
         {page === 6 && (
-          <JokesAndFacts />
+          <JokesAndFacts data={activeIssue.jokesAndFactsData} />
+        )}
+
+        {page === 7 && (
+          <SolutionsPage initialIssueId={selectedIssueId} />
         )}
 
         {/* Bottom Page Navigation Controls */}
@@ -188,12 +273,14 @@ function App() {
             Indietro
           </button>
           
-          <span className="page-number">Pagina {page} di 6</span>
+          <span className="page-number">
+            {page === 7 ? 'Soluzioni Ufficiali del Mese' : `Uscita N. ${activeIssue.number} — Pagina ${page} di 6`}
+          </span>
           
           <button 
             className="nav-button" 
             onClick={nextPage} 
-            disabled={page === 6}
+            disabled={page === 7}
           >
             Avanti
             <ChevronRight size={16} />
