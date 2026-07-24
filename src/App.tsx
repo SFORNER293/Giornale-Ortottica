@@ -255,7 +255,7 @@ function App() {
         )}
 
         {page === 6 && (
-          <JokesAndFacts data={activeIssue.jokesAndFactsData} />
+          <JokesAndFacts data={activeIssue.casesAndFactsData} />
         )}
 
         {page === 7 && (

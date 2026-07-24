@@ -62,25 +62,32 @@ export interface RebusItem {
   expected: string;
   solutionFormatted: string;
   hint: string;
+  graphicDescription: string;
 }
 
 export interface RebusData {
   items: RebusItem[];
 }
 
-export interface Joke {
-  setup: string;
-  punchline: string;
+export interface ClinicalCase {
+  id: string;
+  title: string;
+  patientInfo: string;
+  history: string;
+  examination: string;
+  question: string;
+  solution: string;
 }
 
-export interface Fact {
+export interface ClinicalDeepDive {
   title: string;
+  category: string;
   content: string;
 }
 
-export interface JokesAndFactsData {
-  jokes: Joke[];
-  facts: Fact[];
+export interface CasesAndFactsData {
+  clinicalCases: ClinicalCase[];
+  deepDives: ClinicalDeepDive[];
   clinicalNote: {
     title: string;
     content: string;
@@ -100,7 +107,7 @@ export interface WeeklyIssue {
   wordSearchData: WordSearchData;
   spotDifferencesData: SpotDifferencesData;
   rebusData: RebusData;
-  jokesAndFactsData: JokesAndFactsData;
+  casesAndFactsData: CasesAndFactsData;
 }
 
 export const ISSUES_DATA: WeeklyIssue[] = [
@@ -158,7 +165,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali (11)
         { number: 1, direction: 'across', word: 'ORTOTTICA', clue: 'Scienza e professione sanitaria della riabilitazione visiva.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'BUIO', clue: 'Assenza di luce che causa la midriasi pupillare.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'TESTI', clue: 'Tabelle e prove di lettura impiegate nelle visite ortottiche.', row: 4, col: 4 },
@@ -171,7 +177,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 12, direction: 'across', word: 'ERG', clue: 'Elettroretinogramma per registrare la risposta retinica.', row: 13, col: 6 },
         { number: 13, direction: 'across', word: 'VISUS', clue: 'Il valore di acuità visiva espresso in decimi.', row: 14, col: 8 },
 
-        // Verticali (11) Total = 22 Clues!
         { number: 1, direction: 'down', word: 'OTTOTIPO', clue: 'Tabellone con lettere o simboli per misurare la vista.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'TRATTAMENTO', clue: 'Percorso terapeutico di esercizio e rieducazione visiva.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'AMBLIOPIA', clue: 'Deficit visivo monolaterale comunemente detto occhio pigro.', row: 0, col: 8 },
@@ -220,28 +225,38 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "1' 6   5", expected: "LOCCHIOPIGRO", solutionFormatted: "L'OCCHIO PIGRO", hint: "Cerca il nome dell'organo visivo e della gru di sollevamento." },
-        { id: 'b', title: "REBUS B", diagram: "4   2   6", expected: "MIRALARETINA", solutionFormatted: "MIRA LA RETINA", hint: "Identifica il bersaglio rosso (mira) e la rete da tennis." },
-        { id: 'c', title: "REBUS C", diagram: "2   9", expected: "LASTEREOPSI", solutionFormatted: "LA STEREOPSI", hint: "Quel dispositivo musicale vintage è uno stereo!" }
+        { id: 'a', title: "REBUS A", diagram: "1' 6   5", expected: "LOCCHIOPIGRO", solutionFormatted: "L'OCCHIO PIGRO", hint: "Lettera L' + Disegno dell'Occhio + Lettere P I + Disegno della Gru (U=O)", graphicDescription: "L' + [Disegno Occhio] + P I + [Disegno Gru (U=O)]" },
+        { id: 'b', title: "REBUS B", diagram: "4   2   6", expected: "MIRALARETINA", solutionFormatted: "MIRA LA RETINA", hint: "Disegno del Bersaglio/Mira + Lettere L A + Rete da tennis (E=I) + N A", graphicDescription: "[Disegno Mira/Bersaglio] + L A + [Disegno Rete (E=I)] + N A" },
+        { id: 'c', title: "REBUS C", diagram: "2   9", expected: "LASTEREOPSI", solutionFormatted: "LA STEREOPSI", hint: "Lettere L A + Disegno dello Stereo Vintage + Lettere P S I", graphicDescription: "L A + [Disegno Stereo Hi-Fi] + P S I" }
       ]
     },
-    jokesAndFactsData: {
-      jokes: [
-        { setup: "Un oculista e un ortottista si incontrano al bar prima del turno.", punchline: "L'oculista saluta: 'Ci vediamo più tardi!'. L'ortottista risponde: 'Speriamo in modo binoculare!'" },
-        { setup: "Perché i pesci rossi hanno gli occhi così distanti?", punchline: "Perché altrimenti non riuscirebbero a incrociare lo sguardo e a farsi l'occhiolino!" },
-        { setup: "Dottore, aiuto! Vedo tutto doppio da stamattina!", punchline: "L'ortottista: 'Si accomodi pure sulla sedia davanti a lei.' - 'Quale delle due, dottore?'" },
-        { setup: "Cosa dice un occhio all'altro occhio mentre camminano?", punchline: "'Guarda, ti dico una cosa in confidenza... tra noi due c'è qualcosa che naso!'" },
-        { setup: "Un paziente strabico va a fare la visita e dice: 'Dottore, a volte mi sento così diverso...'", punchline: "L'ortottista lo rassicura: 'Non si preoccupi, noi qui guardiamo le cose da molti punti di vista!'" }
+    casesAndFactsData: {
+      clinicalCases: [
+        {
+          id: "case-1",
+          title: "Caso Clinico #1: Ambliopia Anisometropica Pediatrica",
+          patientInfo: "Paziente: Bambino di 4 anni e mezzo.",
+          history: "Anamnesi: Riscontrato all'esame dello screening visivo prescolare con riduzione dell'acuità visiva monolaterale a sinistra (OS: 2/10; OD: 10/10).",
+          examination: "Esame Ortottico: Rifrazione in ciclopegia: OD +1.00D sf; OS +4.75D sf -1.00D cil ax 90°. Cover test evidenzia microtropia dell'occhio sinistro con soppressione foveale e fissazione parafoveale instabile.",
+          question: "Domanda Clinica: Qual è la diagnosi precisa e il protocollo di riabilitazione ortottica consigliato?",
+          solution: "Diagnosi: Ambliopia Anisometropica Severa dell'occhio sinistro secondaria a ipermetropia elevata. Gestione Terapeutica: 1) Prescrizione immediata e continuativa della correzione ottica totale; 2) Terapia occlusiva dell'occhio dominante (OD) per 4-6 ore al giorno durante compiti visivi ravvicinati; 3) Esercizi ortottici dedicati alla stabilità di fissazione foveale e movimenti saccadici guidati con Vision AI."
+        }
       ],
-      facts: [
-        { title: "La Fovea Centrale", content: "La fovea è una piccolissima depressione sulla retina di appena 1.5 millimetri. Contiene circa la metà di tutte le fibre del nervo ottico dedicate alla visione dettagliata e ai compiti visivi più fini." },
-        { title: "Il Potere delle Saccadi", content: "Le saccadi raggiungono velocità fino a 900 gradi al secondo. Durante la lettura compiamo circa 3-4 saccadi al secondo, durante le quali il cervello sopprime momentaneamente la percezione visiva per evitare sfocature." },
-        { title: "L'Ambliopia (Occhio Pigro)", content: "Se nei primi anni di vita il cervello non riceve un'immagine nitida da uno dei due occhi, tende ad escluderlo. Si cura con la terapia occlusiva e l'allenamento ortottico entro il periodo plastico (fino a 7-8 anni)." },
-        { title: "La Visione Tridimensionale", content: "La stereopsi permette la percezione della profondità 3D grazie alla fusione corticale delle due immagini leggermente disparate catturate dai singoli occhi." }
+      deepDives: [
+        {
+          title: "La Fovea e il Controllo Saccadico",
+          category: "Fisiologia Oculomotoria",
+          content: "La fovea centrale presenta un diametro di circa 1.5 mm ma concentra quasi la metà delle fibre del nervo ottico dedicate al dettaglio visivo. Le saccadi consentono lo spostamento balistico del centro foveale sul bersaglio a velocità fino a 900°/s. Durante la saccade, il fenomeno della soppressione saccadica blocca temporaneamente l'input retinico percettivo per evitare la sensazione di sfocatura."
+        },
+        {
+          title: "Periodo Plastico e Terapia Occlusiva",
+          category: "Ortottica Clinica",
+          content: "La neuroplasticità visiva raggiunge il massimo sviluppo nei primi 7-8 anni di vita. La diagnosi precoce dell'ambliopia permette il completo recupero funzionale dell'occhio deprivato attraverso il dosaggio personalizzato dell'occlusione e la stimolazione visuo-motoria adattiva."
+        }
       ],
       clinicalNote: {
-        title: "Vision AI & Oculomotricità",
-        content: "Gli esercizi di inseguimento e saccadi su Vision AI simulano i protocolli clinici ortottici per rieducare i movimenti oculari e la stabilità foveale."
+        title: "Vision AI & Rieducazione Foveale",
+        content: "I moduli di tracciamento saccadico di Vision AI combinano esercizi visuo-motori a contrasto controllato per promuovere il recupero dell'acuità foveale durante la terapia occlusiva."
       }
     }
   },
@@ -270,7 +285,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         "Cover Test-Tropia": "Esito diagnostico (il Cover-Uncover evidenzia la deviazione oculare manifesta o tropia)",
         "Tropia-Esotropia": "Classificazione (l'esotropia è la tropia convergente manifesta più frequente in età pediatrica)",
         "Esotropia-Angolo Kappa": "Diagnosi differenziale (l'angolo Kappa distingue una vera esotropia da uno pseudo-strabismo)",
-        "Angolo Kappa-Hess-Lancaster": "Esame strumentale (lo Schermo di Hess mappa le deviazioni e le ipofunzioni muscolari)",
+        "Angolo Kappa-Hess-Lancaster": "Esame instrumental (lo Schermo di Hess mappa le deviazioni e le ipofunzioni muscolari)",
         "Hess-Lancaster-Paralisi": "Quadri clinici (lo schermo evidenzia i deficit dei muscoli nelle paralisi oculomotorie)",
         "Paralisi-Stecca Prismi": "Quantificazione (la deviazione paralitica o restrittiva viene misurata con la stecca dei prismi)",
         "Stecca Prismi-Diottrie": "Unità di misura (il potere di deviazione del prisma si misura in diottrie prismatiche Δ)",
@@ -300,7 +315,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali (11)
         { number: 1, direction: 'across', word: 'ESOTROPIA', clue: 'Deviazione oculare manifesta verso l interno (convergente).', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'COVER', clue: 'Test fondamentale eseguito con occlusore per rilevare lo strabismo.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'KAPPA', clue: 'L angolo formato tra l asse visivo e l asse pupillare dell occhio.', row: 4, col: 4 },
@@ -313,7 +327,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 12, direction: 'across', word: 'ALTEZZA', clue: 'Disparità o deviazione verticale misurata al deviatometro.', row: 13, col: 8 },
         { number: 13, direction: 'across', word: 'BAGOLINI', clue: 'Vetri striati usati per testare la soppressione sensoriale.', row: 14, col: 7 },
 
-        // Verticali (11) Total = 22 Clues!
         { number: 1, direction: 'down', word: 'ELEVAZIONE', clue: 'Movimento oculare verso l alto controllato dal retto superiore.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'ORTOFORIA', clue: 'Il perfetto allineamento degli assi visivi senza deviazioni.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'PARALISI', clue: 'Deficit motorio di un muscolo extraoculare d origine nervosa.', row: 0, col: 8 },
@@ -362,28 +375,38 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "C O V E [R] + T E S T : il principale esame dell'ortottista." },
-        { id: 'b', title: "REBUS B", diagram: "9", expected: "ESOTROPIA", solutionFormatted: "ESOTROPIA", hint: "E S O + T R O P I A : la deviazione convergente dell'occhio." },
-        { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "A N G O L O + K A P P A : misura la differenza tra asse visivo e pupillare." }
+        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "Lettera C + Disegno Uovo (OVO V=V) + Lettera E R + Disegno Testa (A=T)", graphicDescription: "C + [Disegno Uovo (V=V)] + E R + [Disegno Testa (A=T)]" },
+        { id: 'b', title: "REBUS B", diagram: "9", expected: "ESOTROPIA", solutionFormatted: "ESOTROPIA", hint: "Lettera E + Disegno del Sole (LE=O) + Lettere T R + Disegno Tabellone (OPIA)", graphicDescription: "E + [Disegno Sole (LE=O)] + T R + [Disegno Ottotipo/OPIA]" },
+        { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno di un Angolo + Lettere K A P P A", graphicDescription: "[Disegno Angolo] + K A P P A" }
       ]
     },
-    jokesAndFactsData: {
-      jokes: [
-        { setup: "Un occhio esotropico dice a un occhio exotropico: 'Che fai stasera?'", punchline: "Risposta: 'Io esco verso l'esterno, tu invece rientri subito a casa!'" },
-        { setup: "Come si saluta un paio di prismi di Fresnel?", punchline: "'Ci si vede in diottrie sgranate!'" },
-        { setup: "Perché l'occlusore ha vinto il premio per il miglior attore?", punchline: "Perché sa fare una copertura perfetta durante il Cover Test!" },
-        { setup: "Un bambino fa il cover test e chiede: 'Dottore, perché mi coprite un occhio?'", punchline: "L'ortottista risponde: 'Perché con l'altro ti stiamo preparando una sorpresa!' " },
-        { setup: "Cosa fa una stecca di prismi al mare?", punchline: "Prende il sole ad angoli di deviazione graduati!" }
+    casesAndFactsData: {
+      clinicalCases: [
+        {
+          id: "case-2",
+          title: "Caso Clinico #2: Paresi dell'Abducente (VI CN) e Diplopia Acuta",
+          patientInfo: "Paziente: Uomo di 38 anni.",
+          history: "Anamnesi: Riferisce insorgenza acuta di diplopia orizzontale binoculare avvertita principalmente durante la visione verso destra a seguito di trauma.",
+          examination: "Esame Ortottico: Cover test evidenzia esotropia dell'occhio destro in posizione primaria (+18Δ) che aumenta significativamente nella destroversione. Lo Schermo di Hess-Lancaster mostra marcata ipofunzione del muscolo Retto Laterale destro e iperfunzione del Retto Mediale sinistro.",
+          question: "Domanda Clinica: Qual è la diagnosi e la strategia di compensazione prismatica immediata?",
+          solution: "Diagnosi: Paresi del VI nervo cranico (abducente) dell'occhio destro. Trattamento Ortottico: 1) Applicazione immediata di un Prisma di Fresnel a base esterna sull'occhio destro per neutralizzare la diplopia e ripristinare la visione binoculare singola in posizione primaria; 2) Esercizi di stretching e stimolazione oculomotoria per prevenire la contrattura secondaria del retto mediale antagonista."
+        }
       ],
-      facts: [
-        { title: "Il Cover Test (Copri-Scopri)", content: "È l'esame cardine in ortottica. Il Cover-Uncover rileva lo strabismo manifesto (tropia), mentre l'Alternate Cover Test interrompe la fusione per evidenziare le deviazioni latenti (forie)." },
-        { title: "L'Angolo Kappa (α / κ)", content: "È l'angolo formato tra l'asse visivo e l'asse pupillare. Un angolo Kappa positivo molto ampio può simulare una finta exotropia (pseudo-strabismo)." },
-        { title: "Lo Schermo di Hess-Lancaster", content: "Utilizza occhiali con filtri rosso-verdi per mappare le paralisi oculomotorie e quantificare l'ipofunzione o iperfunzione dei 6 muscoli extraoculari." },
-        { title: "I Prismi di Fresnel", content: "Sono sottili pellicole plastiche flessibili a micro-prismi che vengono applicate direttamente sulla lente degli occhiali per compensare temporaneamente diplopie improvvise." }
+      deepDives: [
+        {
+          title: "Cover-Uncover vs Alternate Cover Test",
+          category: "Semiotica Ortottica",
+          content: "Il Cover-Uncover Test identifica le deviazioni manifeste (tropie) osservando il movimento di fissazione dell'occhio scoperto. L'Alternate Cover Test interrompe completamente la fusione sensoriale tra i due occhi, svelando le deviazioni latenti (forie) mantenute dalla convergenza fusionale."
+        },
+        {
+          title: "Schermo di Hess-Lancaster e Paralisi",
+          category: "Diagnostica Strabologica",
+          content: "Attraverso l'uso di occhiali con filtri complementari rosso/verde, lo schermo di Hess permette di isolare e mappare graficamente la funzione di ciascuno dei 6 muscoli extraoculari per ogni occhio, distinguendo ipofunzioni paretiche da iperfunzioni secondarie."
+        }
       ],
       clinicalNote: {
         title: "Strabismo & Diagnostica con Vision AI",
-        content: "Vision AI analizza i dati di risposta ai test di fissazione offrendo indicazioni oggettive sui pattern di deviazione oculomotoria."
+        content: "Vision AI integra moduli computazionali per analizzare le deviazioni oculari e la dinamica dei movimenti coniugati e disgiunti."
       }
     }
   },
@@ -442,7 +465,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali (11)
         { number: 1, direction: 'across', word: 'SINOTTOFORO', clue: 'Lo strumento principe per la diagnosi e terapia della visione binoculare.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'WORTH', clue: 'Lo scienziato che ha codificato i 3 gradi della visione binoculare.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'FUSIONE', clue: 'Secondo grado di Worth: unione mentale di due immagini simili.', row: 4, col: 4 },
@@ -455,7 +477,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 12, direction: 'across', word: 'FISSIONE', clue: 'Scissione percettiva dell immagine nei test fusionali.', row: 13, col: 7 },
         { number: 13, direction: 'across', word: 'ANOMALIA', clue: 'Deviazione della corrispondenza retinica (CRA/ARC).', row: 14, col: 7 },
 
-        // Verticali (11) Total = 22 Clues!
         { number: 1, direction: 'down', word: 'SOGGETTIVO', clue: 'L angolo in cui il paziente sovrappone le due immagini al sinottoforo.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'SOPPRESSIONE', clue: 'Meccanismo corticale che cancella l immagine dell occhio deviato.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'ANOMALA', clue: 'Corrispondenza retinica in cui la fovea si associa a un punto extrafoveale.', row: 0, col: 8 },
@@ -504,24 +525,34 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "11", expected: "SINOTTOFORO", solutionFormatted: "SINOTTOFORO", hint: "S I N O T T O + F O R O : lo strumento con bracci articolati e oculari." },
-        { id: 'b', title: "REBUS B", diagram: "7", expected: "FUSIONE", solutionFormatted: "FUSIONE", hint: "F U S I O N E : unire mentalmente due immagini percepite dai due occhi." },
-        { id: 'c', title: "REBUS C", diagram: "6   7", expected: "RETINAANOMALA", solutionFormatted: "RETINA ANOMALA", hint: "R E T I N A + A N O M A L A : la corrispondenza retinica non normale (CRA)." }
+        { id: 'a', title: "REBUS A", diagram: "11", expected: "SINOTTOFORO", solutionFormatted: "SINOTTOFORO", hint: "Lettere S I + Disegno del Numero Nove (V=TT) + Lettera O + Disegno del Foro", graphicDescription: "S I + [Disegno Nove (V=TT)] + O + [Disegno Foro/Galleria]" },
+        { id: 'b', title: "REBUS B", diagram: "7", expected: "FUSIONE", solutionFormatted: "FUSIONE", hint: "Lettera F + Disegno del Fuso (O=I) + Lettere O N E", graphicDescription: "F + [Disegno Fuso (O=I)] + O N E" },
+        { id: 'c', title: "REBUS C", diagram: "6   7", expected: "RETINAANOMALA", solutionFormatted: "RETINA ANOMALA", hint: "Disegno della Rete (E=I) + N A + Disegno dell'Anatra (TRA=MALA)", graphicDescription: "[Disegno Rete (E=I)] + N A + [Disegno Anatra (TRA=MALA)]" }
       ]
     },
-    jokesAndFactsData: {
-      jokes: [
-        { setup: "Un leone disegnato su una diapositiva del sinottoforo sbotta:", punchline: "'Sono 20 minuti che cerco di entrare in questa gabbia, ma l'ortottista ha aperto il braccio di 15 diottrie!'" },
-        { setup: "Cosa dice il primo grado di Worth al terzo grado?", punchline: "'Tu ti credi profondo solo perché vedi tutto in 3D!'" },
-        { setup: "Perché il sinottoforo è il miglior mediatore di coppia al mondo?", punchline: "Perché riesce sempre a trovare l'angolo di fusione perfetto!" },
-        { setup: "Un occhio soppresso dice all'altro:", punchline: "'Ehi, accendi la luce del flashing altrimenti mi addormento di nuovo!'" },
-        { setup: "Cosa fa una diapositiva con il coniglio quando il paziente ha l'angolo oggettivo a zero?", punchline: "Trova finalmente la sua coda!" }
+    casesAndFactsData: {
+      clinicalCases: [
+        {
+          id: "case-3",
+          title: "Caso Clinico #3: Insufficienza di Convergenza e Astenopia",
+          patientInfo: "Paziente: Ragazza di 14 anni.",
+          history: "Anamnesi: Lamenta cefalea frontale pomeridiana, diplopia sfocata intermittente e stanchezza durante lo studio vicino.",
+          examination: "Esame Ortottico: Al sinottoforo l'angolo oggettivo da lontano è di 0°. L'ampiezza di fusione in convergenza è ridotta a soli +8Δ (valore normale > +30Δ). Punto Prossimo di Convergenza (PPC) allontanato a 18 cm con tendenza all'exoforia.",
+          question: "Domanda Clinica: Qual è la diagnosi e il protocollo di rieducazione fusionale al sinottoforo?",
+          solution: "Diagnosi: Insufficienza di Convergenza (IC) sintomatica. Trattamento Ortottico: 1) Esercizi al sinottoforo con mire di 2° grado (Fusione) mediante stimolazione graduale con il movimento convergente dei bracci; 2) Esercizi di flashing per potenziare la riserva fusionale positiva; 3) Esercizi al Punto Prossimo di Convergenza (PPC) da casa."
+        }
       ],
-      facts: [
-        { title: "I 3 Gradi di Worth", content: "Codificati da Claud Worth: 1° Grado = Percezione Simultanea (figure differenti, es. leone e gabbia); 2° Grado = Fusione (figure simili con dettagli integrativi); 3° Grado = Stereopsi (profondità 3D)." },
-        { title: "Angolo Oggettivo vs Soggettivo", content: "L'angolo oggettivo è la reale deviazione anatomica neutralizzata al sinottoforo. L'angolo soggettivo è quello in cui il paziente sovrappone le immagini. La loro differenza definisce l'angolo di anomalia." },
-        { title: "La Corrispondenza Retinica Anomala (CRA)", content: "Nello strabismo precoce, il cervello adatta la mappa sensoriale: la fovea dell'occhio sano fa coppia con un punto extrafoveale dell'occhio deviato per evitare la diplopia." },
-        { title: "Il Flashing Terapeutico", content: "La stimolazione luminosa alternata o simultanea delle mire del sinottoforo viene usata in ortottica per sbloccare la soppressione e stimolare l'ampiezza di fusione." }
+      deepDives: [
+        {
+          title: "I 3 Gradi della Visione Binoculare di Worth",
+          category: "Fisiologia Binoculare",
+          content: "Claud Worth ha definito la gerarchia della visione binoculare: 1° Grado = Percezione Simultanea (capacità di percepire due immagini differenti, es. Leone/Gabbia); 2° Grado = Fusione Sensoriale (integrazione di due immagini simili con dettagli complementari); 3° Grado = Stereopsi (percezione della tridimensionalità 3D basata sulla disparità retinica)."
+        },
+        {
+          title: "Corrispondenza Retinica Anomala (CRA)",
+          category: "Adattamento Sensoriale",
+          content: "Nello strabismo precoce insorto in età pediatrica, per evitare la diplopia il cervello sviluppa la CRA: la fovea dell'occhio fissatore si associa funzionalmente ad un punto retinico extrafoveale dell'occhio deviato, creando un nuovo angolo di anomalia."
+        }
       ],
       clinicalNote: {
         title: "Vision AI & Valutazione Binoculare",
@@ -557,7 +588,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         "Retina-Macula": "Anatomia retinica (la macula lutea costituisce la regione retinica posteriore adibita alla visione distinta)",
         "Macula-Foveola": "Centro retinico (la foveola è il centro esatto della fovea maculare con la massima densità di coni)",
         "Foveola-Ametropia": "Vizi di rifrazione (le ametropie come miopia o ipermetropia spostano il fuoco lontano dalla foveola)",
-        "Ametropia-Perimetria": "Esami strumentali (la perimetria computerizzata di Humphrey mappa la sensibilità dei punti retinici)",
+        "Ametropia-Perimetria": "Esami instrumental (la perimetria computerizzata di Humphrey mappa la sensibilità dei punti retinici)",
         "Perimetria-Oftalmologia": "Diagnostica integrata (la perimetria ed i dati di rifrazione completano la diagnosi oftalmologica)"
       },
       nodes: [
@@ -584,7 +615,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     crosswordData: {
       gridSize: 15,
       clues: [
-        // Orizzontali (11)
         { number: 1, direction: 'across', word: 'CORNEA', clue: 'Prima lente trasparente ed avascolare della superficie oculare.', row: 0, col: 0 },
         { number: 4, direction: 'across', word: 'MIOPIA', clue: 'Difetto di rifrazione con fuoco posizionato davanti alla retina.', row: 2, col: 8 },
         { number: 5, direction: 'across', word: 'CRISTALLINO', clue: 'Lente intraoculare trasparente che varia potere per l accomodazione.', row: 4, col: 4 },
@@ -597,7 +627,6 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 12, direction: 'across', word: 'HUMPHREY', clue: 'Perimetro computerizzato standard di riferimento.', row: 13, col: 6 },
         { number: 13, direction: 'across', word: 'SCOTOMA', clue: 'Area di deficit o cecità all interno del campo visivo.', row: 14, col: 8 },
 
-        // Verticali (11) Total = 22 Clues!
         { number: 1, direction: 'down', word: 'IPERMETROPIA', clue: 'Difetto di rifrazione in cui le immagini vanno a fuoco dietro la retina.', row: 0, col: 0 },
         { number: 2, direction: 'down', word: 'ASTIGMATISMO', clue: 'Ametropia dovuta a curvatura asimmetrica dei meridiani corneali.', row: 0, col: 4 },
         { number: 3, direction: 'down', word: 'PRESBIOPIA', clue: 'Calo fisiologico dell accomodazione che insorge dopo i 40 anni.', row: 0, col: 8 },
@@ -646,24 +675,34 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "11", expected: "CRISTALLINO", solutionFormatted: "CRISTALLINO", hint: "C R I S T A L L I N O : la lente naturale trasparente dell'occhio." },
-        { id: 'b', title: "REBUS B", diagram: "5   6", expected: "CAMPOVISIVO", solutionFormatted: "CAMPO VISIVO", hint: "C A M P O + V I S I V O : lo spazio che gli occhi riescono ad abbracciare." },
-        { id: 'c', title: "REBUS C", diagram: "10", expected: "RIFRAZIONE", solutionFormatted: "RIFRAZIONE", hint: "R I F R A Z I O N E : il percorso e la deviazione dei raggi di luce nell'occhio." }
+        { id: 'a', title: "REBUS A", diagram: "11", expected: "CRISTALLINO", solutionFormatted: "CRISTALLINO", hint: "Lettera C + Disegno Cresta (E=I) + Lettere S T + Disegno Gallo (O=I) + N O", graphicDescription: "C + [Disegno Cresta (E=I)] + S T + [Disegno Gallo (O=I)] + N O" },
+        { id: 'b', title: "REBUS B", diagram: "5   6", expected: "CAMPOVISIVO", solutionFormatted: "CAMPO VISIVO", hint: "Disegno del Campo Verde + Lettere V I + Disegno del Viso (SO=VO)", graphicDescription: "[Disegno Campo Verde] + V I + [Disegno Viso (SO=VO)]" },
+        { id: 'c', title: "REBUS C", diagram: "10", expected: "RIFRAZIONE", solutionFormatted: "RIFRAZIONE", hint: "Lettere R I + Disegno del Raggio Luminoso + Lettere A Z I O N E", graphicDescription: "R I + [Disegno Raggio Luminoso] + A Z I O N E" }
       ]
     },
-    jokesAndFactsData: {
-      jokes: [
-        { setup: "Perché la miopia non si stanca mai di camminare?", punchline: "Perché guarda sempre avanti... ma vede nitido solo da vicino!" },
-        { setup: "Un raggio di luce entra nella cornea e dice al cristallino:", punchline: "'Preparati, adesso tocca a te fare un po' di accomodazione!'" },
-        { setup: "Cosa dice l'astigmatismo al cilindro crociato?", punchline: "'Girati pure di 90 gradi, tanto per me cambia tutto l'asse!'" },
-        { setup: "Un paziente presbite cerca le chiavi di casa da un'ora:", punchline: "L'ortottista gli dice: 'Guardi che le ha sul naso... e pure gli occhiali da lettura!'" },
-        { setup: "Cosa fa il tonometro al parco?", punchline: "Misura la pressione... ma solo in millimetri di mercurio!" }
+    casesAndFactsData: {
+      clinicalCases: [
+        {
+          id: "case-4",
+          title: "Caso Clinico #4: Astigmatismo Misto Composito e Astenopia Digitale",
+          patientInfo: "Paziente: Studente universitario di 21 anni.",
+          history: "Anamnesi: Visione sfocata sia da lontano che durante la lettura da vicino, associata a colpi di sole e bagliori attorno ai segnali stradali notturni.",
+          examination: "Esame Ortottico e Refrattivo: Autorefrattometria in ciclopegia: OD -2.25D sf -1.50D cil ax 90°; OS -2.00D sf -1.75D cil ax 85°. La topografia corneale evidenzia astigmatismo regolare secondo regola. La perimetria computerizzata di Humphrey risulta nei limiti della norma.",
+          question: "Domanda Clinica: Qual è la diagnosi ametropica e la soluzione oftalmica per ridurre la fatica visiva?",
+          solution: "Diagnosi: Miopia associata ad Astigmatismo Misto Composito Secondo Regola. Soluzione Ottico-Ortottica: 1) Prescrizione di lenti oftalmiche sfero-cilindriche negative ad alto indice con trattamento antiriflesso e filtro per la luce blu; 2) Esercizi ortottici di flessibilità accomodativa (stampa di flipper) per prevenire lo spasmo accomodativo durante lo studio prolungato."
+        }
       ],
-      facts: [
-        { title: "Cornea e Cristallino", content: "La cornea fornisce circa i 2/3 del potere rifrattivo totale dell'occhio (~43 diottrie). Il cristallino fornisce le rimanenti ~20 diottrie ed è in grado di modificare la sua forma per l'accomodazione." },
-        { title: "Miopia vs Ipermetropia", content: "Nella miopia il bulbo è troppo lungo (o la cornea troppo curva) e i raggi vanno a fuoco davanti alla retina. Nell'ipermetropia il bulbo è corto e le immagini vanno a fuoco idealmente dietro la retina." },
-        { title: "La Perimetria Computerizzata", content: "Strumenti come il perimetro di Humphrey misurano la sensibilità retinica e rilevano eventuali scotomi o difetti del campo visivo centrale e periferico." },
-        { title: "La Tonometria Oculare", content: "Misura la pressione intraoculare (IOP). Valori normali variano tra 10 e 21 mmHg. È fondamentale per la prevenzione del glaucoma e la salute del nervo ottico." }
+      deepDives: [
+        {
+          title: "Ottica della Cornea e del Cristallino",
+          category: "Ottica Fisiologica",
+          content: "La cornea costituisce la prima superficie di rifrazione con un potere di circa +43 diottrie. Il cristallino fornisce le rimanenti +20 diottrie ed è la sola lente dell'occhio in grado di modificare la propria curvatura grazie alla contrazione del muscolo ciliare (accomodazione)."
+        },
+        {
+          title: "Perimetria Computerizzata di Humphrey",
+          category: "Diagnostica del Campo Visivo",
+          content: "La perimetria quantitativa mappa la sensibilità differenziale della retina (in decibel dB) identificando precocemente eventuali scotomi, ampiezze periferiche e difetti fascicolari del nervo ottico."
+        }
       ],
       clinicalNote: {
         title: "Vision AI & Oftalmologia Integrata",
