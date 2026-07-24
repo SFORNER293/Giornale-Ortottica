@@ -16,7 +16,6 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({ data, onComplete
   const [candidateCells, setCandidateCells] = useState<{ r: number; c: number }[]>([]);
   const [foundCells, setFoundCells] = useState<{ r: number; c: number }[]>([]);
 
-  // Reset found words when issue changes
   useEffect(() => {
     setFoundWords([]);
     setStartCell(null);
@@ -24,11 +23,9 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({ data, onComplete
     setFoundCells([]);
   }, [data]);
 
-  // Generate grid dynamically from data placements and secret phrase
   const gridContent = useMemo(() => {
     const tempGrid: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
     
-    // 1. Place the words
     data.placements.forEach(({ word, coords }) => {
       coords.forEach(([r, c], idx) => {
         if (r < GRID_SIZE && c < GRID_SIZE) {
@@ -37,7 +34,6 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({ data, onComplete
       });
     });
 
-    // 2. Fill empty cells with secret phrase letters
     let phraseIdx = 0;
     const cleanSecret = data.secretPhrase.replace(/[^A-Z]/gi, '').toUpperCase();
     for (let r = 0; r < GRID_SIZE; r++) {
@@ -174,19 +170,21 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({ data, onComplete
 
   return (
     <div className="wordsearch-container">
-      <div style={{ flex: '1.2' }}>
-        <h2 className="game-title">Crucipuzzle</h2>
-        <p className="game-subtitle">
-          Trova le parole dell'elenco. Clicca sulla prima lettera e poi sull'ultima per cancellarle!
-        </p>
+      {/* Title and Subtitle at full width top */}
+      <h2 className="game-title">Crucipuzzle</h2>
+      <p className="game-subtitle">
+        Trova le parole dell'elenco. Clicca sulla prima lettera e poi sull'ultima per cancellarle!
+      </p>
 
-        {isCompleted && (
-          <div className="feedback-modal" style={{ position: 'relative', top: 0, transform: 'none', margin: '0 auto 15px auto' }}>
-            <CheckCircle size={18} />
-            <span>Crucipuzzle risolto! Tutte le parole sono state trovate!</span>
-          </div>
-        )}
+      {isCompleted && (
+        <div className="feedback-modal" style={{ position: 'relative', top: 0, transform: 'none', margin: '0 auto 15px auto' }}>
+          <CheckCircle size={18} />
+          <span>Crucipuzzle risolto! Tutte le parole sono state trovate!</span>
+        </div>
+      )}
 
+      {/* Two-column layout: Left Grid & Right Word List aligned at top of grid */}
+      <div className="wordsearch-body">
         <div className="wordsearch-grid-wrapper">
           <div className="wordsearch-grid">
             {gridContent.map((row, r) => (
@@ -212,35 +210,35 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({ data, onComplete
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="wordsearch-words-list">
-        <h3 className="word-search-title">Parole da trovare</h3>
-        <ul className="words-grid">
-          {data.wordList.map((word) => {
-            const isFound = foundWords.includes(word);
-            return (
-              <li key={word} className={`word-item ${isFound ? 'found' : ''}`}>
-                {word}
-              </li>
-            );
-          })}
-        </ul>
+        <div className="wordsearch-words-list">
+          <h3 className="word-search-title">Parole da trovare</h3>
+          <ul className="words-grid">
+            {data.wordList.map((word) => {
+              const isFound = foundWords.includes(word);
+              return (
+                <li key={word} className={`word-item ${isFound ? 'found' : ''}`}>
+                  {word}
+                </li>
+              );
+            })}
+          </ul>
 
-        <div className="secret-phrase-box">
-          <div className="secret-phrase-title">Frase Risolutiva</div>
-          {getSecretPhraseMarkup()}
+          <div className="secret-phrase-box">
+            <div className="secret-phrase-title">Frase Risolutiva</div>
+            {getSecretPhraseMarkup()}
+          </div>
+
+          {!isCompleted && (
+            <button 
+              className="nav-button" 
+              onClick={handleRevealAll}
+              style={{ marginTop: '20px', width: '100%', justifyContent: 'center', fontSize: '11px', padding: '4px' }}
+            >
+              Rivela Soluzione
+            </button>
+          )}
         </div>
-
-        {!isCompleted && (
-          <button 
-            className="nav-button" 
-            onClick={handleRevealAll}
-            style={{ marginTop: '20px', width: '100%', justifyContent: 'center', fontSize: '11px', padding: '4px' }}
-          >
-            Rivela Soluzione
-          </button>
-        )}
       </div>
     </div>
   );
