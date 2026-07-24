@@ -588,6 +588,75 @@ body {
   font-weight: bold;
 }
 
+/* Spot the Differences Side-by-Side Horizontal Layout */
+.differences-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.differences-view {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.difference-frame {
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid var(--border-color);
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+}
+
+.difference-frame-title {
+  font-family: var(--font-typewriter);
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--se-blue);
+  text-transform: uppercase;
+}
+
+.difference-svg-wrapper {
+  position: relative;
+  width: 100%;
+  cursor: crosshair;
+}
+
+.difference-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.differences-counter-banner {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--se-red);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(194, 32, 38, 0.05);
+  border: 1px dashed var(--se-red);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
 /* Rebus Game styles */
 .rebus-container {
   display: flex;
