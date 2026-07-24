@@ -169,7 +169,7 @@ function App() {
           onClick={() => setPage(6)} 
           className={`toc-item ${page === 6 ? 'active' : ''}`}
         >
-          <span>Pag. 6: Letture & Humor</span>
+          <span>Pag. 6: Casi Clinici</span>
         </button>
         <button 
           onClick={() => setPage(7)} 

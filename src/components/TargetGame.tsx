@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, RotateCcw, AlertCircle } from 'lucide-react';
+import { CheckCircle, RotateCcw, AlertCircle, Compass } from 'lucide-react';
 import type { TargetData, TargetNode } from '../data/issuesData';
 
 interface TargetGameProps {
@@ -12,7 +12,6 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
   const [selectedPath, setSelectedPath] = useState<string[]>([data.startWord]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Reset selected path when active issue data changes
   useEffect(() => {
     setSelectedPath([data.startWord]);
     setErrorMsg(null);
@@ -28,21 +27,22 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
     };
   };
 
+  const nextExpectedIndex = selectedPath.length;
+  const nextExpectedWord = !isCompleted && nextExpectedIndex < data.correctChain.length ? data.correctChain[nextExpectedIndex] : null;
+  const lastWord = selectedPath[selectedPath.length - 1];
+
   const handleWordClick = (word: string) => {
     if (isCompleted) return;
     
     if (selectedPath.includes(word)) {
-      if (word !== data.startWord && selectedPath[selectedPath.length - 1] === word) {
+      if (word !== data.startWord && lastWord === word) {
         setSelectedPath(prev => prev.slice(0, -1));
         setErrorMsg(null);
       }
       return;
     }
 
-    const nextExpectedIndex = selectedPath.length;
-    const expectedWord = data.correctChain[nextExpectedIndex];
-
-    if (word === expectedWord) {
+    if (word === nextExpectedWord) {
       const newPath = [...selectedPath, word];
       setSelectedPath(newPath);
       setErrorMsg(null);
@@ -51,8 +51,7 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
         onComplete();
       }
     } else {
-      const lastWord = selectedPath[selectedPath.length - 1];
-      setErrorMsg(`"${word}" non si collega a "${lastWord}". Cerca la relazione clinica, anagramma o cambio lettera!`);
+      setErrorMsg(`"${word}" non è il passaggio immediato per collegare "${lastWord}". Prova a selezionare la parola evidenziata o un concetto clinico più diretto!`);
       setTimeout(() => setErrorMsg(null), 4000);
     }
   };
@@ -136,6 +135,7 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
           {/* Render target badges */}
           {data.nodes.map((node: TargetNode) => {
             const isSelected = selectedPath.includes(node.word);
+            const isNextCandidate = !isCompleted && node.word === nextExpectedWord;
             const { x, y } = getWordCoords(node.word);
             const isStart = node.word === data.startWord;
             const isEnd = node.word === data.endWord;
@@ -154,9 +154,9 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
                     cx={x} 
                     cy={y} 
                     r="34" 
-                    fill={isSelected ? "var(--se-blue)" : "var(--se-red)"} 
-                    stroke="white" 
-                    strokeWidth="1.5" 
+                    fill={isSelected ? "var(--se-blue)" : isNextCandidate ? "#ca8a04" : "var(--se-red)"} 
+                    stroke={isNextCandidate ? "#fef08a" : "white"} 
+                    strokeWidth={isNextCandidate ? "3" : "1.5"}
                     style={{ transition: 'fill 0.2s ease' }}
                   />
                   <text
@@ -187,20 +187,20 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
                   width={width}
                   height={height}
                   rx="12"
-                  fill={isSelected ? "var(--se-blue)" : "white"}
-                  stroke={isStart ? "var(--se-red)" : "var(--border-color)"}
-                  strokeWidth={isStart ? "2" : "1.5"}
+                  fill={isSelected ? "var(--se-blue)" : isNextCandidate ? "#fef9c3" : "white"}
+                  stroke={isNextCandidate ? "#d97706" : isStart ? "var(--se-red)" : "var(--border-color)"}
+                  strokeWidth={isNextCandidate ? "2.5" : isStart ? "2" : "1.5"}
                   style={{ transition: 'all 0.2s ease' }}
-                  filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.1))"
+                  filter={isNextCandidate ? "drop-shadow(0px 0px 4px rgba(217, 119, 6, 0.4))" : "drop-shadow(0px 1px 2px rgba(0,0,0,0.1))"}
                 />
                 
                 <text
                   x={x}
                   y={y + 4}
-                  fill={isSelected ? "white" : "black"}
+                  fill={isSelected ? "white" : isNextCandidate ? "#b45309" : "black"}
                   fontSize="11"
                   fontFamily="var(--font-mono)"
-                  fontWeight="bold"
+                  fontWeight={isNextCandidate || isSelected ? "bold" : "normal"}
                   textAnchor="middle"
                 >
                   {node.word}
@@ -210,6 +210,24 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
           })}
         </svg>
       </div>
+
+      {nextExpectedWord && !isCompleted && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          backgroundColor: '#fefce8',
+          border: '1px solid #fef08a',
+          color: '#854d0e',
+          padding: '6px 12px',
+          borderRadius: '4px',
+          fontSize: '12px',
+          fontFamily: 'var(--font-typewriter)'
+        }}>
+          <Compass size={14} />
+          <span><strong>Guida Clinica:</strong> Trova il nodo evidenziato in dorato (<strong>{nextExpectedWord}</strong>) per proseguire!</span>
+        </div>
+      )}
 
       {lastTransition && (
         <div style={{
@@ -223,9 +241,9 @@ export const TargetGame: React.FC<TargetGameProps> = ({ data, onComplete, isComp
           textAlign: 'center',
           width: '100%',
           maxWidth: '460px',
-          marginTop: '10px'
+          marginTop: '6px'
         }}>
-          <strong>Ultimo step:</strong> {selectedPath[selectedPath.length - 2]} → {selectedPath[selectedPath.length - 1]} 
+          <strong>Ultimo step effettuato:</strong> {selectedPath[selectedPath.length - 2]} → {selectedPath[selectedPath.length - 1]} 
           <br />
           <span style={{ fontSize: '11px', opacity: 0.85 }}>{lastTransition}</span>
         </div>
