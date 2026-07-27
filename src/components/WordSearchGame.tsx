@@ -186,7 +186,13 @@ export const WordSearchGame: React.FC<WordSearchGameProps> = ({ data, onComplete
       {/* Two-column layout: Left Grid & Right Word List aligned at top of grid */}
       <div className="wordsearch-body">
         <div className="wordsearch-grid-wrapper">
-          <div className="wordsearch-grid">
+          <div 
+            className="wordsearch-grid"
+            style={{
+              gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+              gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`
+            }}
+          >
             {gridContent.map((row, r) => (
               row.map((letter, c) => {
                 const isFound = isCellInFound(r, c);
