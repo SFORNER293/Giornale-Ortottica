@@ -856,22 +856,23 @@ body {
 /* Issue Selector Bar */
 .issue-selector-bar {
   background-color: white;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--se-blue);
   border-radius: 8px;
-  padding: 14px 18px;
+  padding: 12px 14px;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   box-shadow: var(--shadow-card);
 }
 
-@media (min-width: 768px) {
-  .issue-selector-bar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
+.issue-selector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .issue-selector-title {
@@ -879,7 +880,7 @@ body {
   align-items: center;
   gap: 8px;
   font-family: var(--font-typewriter);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
   color: var(--se-blue);
   text-transform: uppercase;
@@ -889,10 +890,10 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  flex: 1;
+  width: 100%;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 640px) {
   .issue-buttons-list {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -901,14 +902,16 @@ body {
 .issue-select-btn {
   border: 1.5px solid var(--border-color);
   border-radius: 6px;
-  padding: 9px 12px;
+  padding: 7px 9px;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
   background-color: var(--paper-bg);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .issue-select-btn:hover {

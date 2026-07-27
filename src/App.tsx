@@ -105,8 +105,8 @@ function App() {
     <div id="root">
       {/* Top Edition Selector Bar */}
       <div className="issue-selector-bar">
-        <div className="issue-selector-title" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <div className="issue-selector-header">
+          <div className="issue-selector-title">
             <Calendar size={15} />
             <span>Edizioni di Agosto 2026:</span>
           </div>
@@ -414,7 +414,7 @@ function App() {
               <h3 style={{ margin: 0, fontSize: '18px', fontFamily: 'var(--font-serif)' }}>Modalità Editore / Autore</h3>
             </div>
             <p style={{ margin: '0 0 12px 0', fontSize: '13px', color: 'var(--ink-secondary)' }}>
-              Inserisci il PIN editore per sbloccare e modificare in anteprima tutti i 4 volumi (PIN predefinito: <strong style={{ color: 'var(--se-red)' }}>1234</strong>):
+              Inserisci il PIN segreto dell'Editore per sbloccare e modificare in anteprima tutti i 4 volumi:
             </p>
             <input 
               type="password" 
@@ -423,14 +423,14 @@ function App() {
                 setAdminPinInput(e.target.value);
                 setPinError(false);
               }}
-              placeholder="Inserisci PIN (es. 1234)"
+              placeholder="Inserisci PIN segreto"
               style={{ width: '100%', padding: '8px 12px', fontSize: '14px', borderRadius: '4px', border: pinError ? '2px solid var(--se-red)' : '1px solid var(--border-color)', marginBottom: '10px', boxSizing: 'border-box' }}
               onKeyDown={e => {
                 if (e.key === 'Enter') handlePinSubmit();
               }}
               autoFocus
             />
-            {pinError && <div style={{ color: 'var(--se-red)', fontSize: '12px', marginBottom: '10px', fontWeight: 'bold' }}>PIN errato! Riprova con 1234.</div>}
+            {pinError && <div style={{ color: 'var(--se-red)', fontSize: '12px', marginBottom: '10px', fontWeight: 'bold' }}>PIN errato! Inserisci il codice segreto autorizzato.</div>}
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
               <button className="nav-button" onClick={() => setShowAdminModal(false)}>Annulla</button>
               <button className="nav-button active" onClick={handlePinSubmit}>Attiva Modo Editore</button>
