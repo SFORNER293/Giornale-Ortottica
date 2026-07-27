@@ -220,7 +220,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     rebusData: {
       items: [
         { id: 'a', title: "REBUS A", diagram: "1' 6   5", expected: "LOCCHIOPIGRO", solutionFormatted: "L'OCCHIO PIGRO", hint: "Lettera L' + Disegno dell'Occhio + Lettere P I + Disegno della Gru (U=O)", graphicDescription: "L' + [Disegno Occhio] + P I + [Disegno Gru (U=O)]" },
-        { id: 'b', title: "REBUS B", diagram: "4   2   6", expected: "MIRALARETINA", solutionFormatted: "MIRA LA RETINA", hint: "Disegno del Bersaglio/Mira + Lettere L A + Rete da tennis (E=I) + N A", graphicDescription: "[Disegno Mira/Bersaglio] + L A + [Disegno Rete (E=I)] + N A" },
+        { id: 'b', title: "REBUS B", diagram: "4   2   6", expected: "MIRALARETINA", solutionFormatted: "MIRA LA RETINA", hint: "Disegno del Bersaglio/Mira + Lettere L A + Disegno di due reti (RETI) + Lettere N A", graphicDescription: "[Disegno Mira/Bersaglio] + L A + [Disegno di Due Reti (RETI)] + N A" },
         { id: 'c', title: "REBUS C", diagram: "2   9", expected: "LASTEREOPSI", solutionFormatted: "LA STEREOPSI", hint: "Lettere L A + Disegno dello Stereo Vintage + Lettere P S I", graphicDescription: "L A + [Disegno Stereo Hi-Fi] + P S I" }
       ]
     },

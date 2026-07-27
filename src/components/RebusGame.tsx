@@ -63,24 +63,56 @@ export const RebusGame: React.FC<RebusGameProps> = ({ data, issueId, onComplete,
       if (item.id === 'a') { // L'OCCHIO PIGRO
         return (
           <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            <line x1="250" y1="10" x2="250" y2="150" stroke="#e5e7eb" strokeWidth="1.5" strokeDasharray="4 4" />
+            <line x1="220" y1="10" x2="220" y2="150" stroke="#e5e7eb" strokeWidth="1.5" strokeDasharray="4 4" />
             <g transform="translate(10, 0)">
-              <text x="50" y="85" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">L'</text>
+              <text x="30" y="85" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">L'</text>
               {/* Occhio */}
-              <g transform="translate(90, 35)">
+              <g transform="translate(70, 35)">
                 <path d="M 10 45 Q 60 10 110 45 Q 60 80 10 45 Z" fill="white" stroke="#374151" strokeWidth="2.5" />
                 <circle cx="60" cy="45" r="18" fill="#93c5fd" stroke="#2563eb" strokeWidth="1.5" />
                 <circle cx="60" cy="45" r="7" fill="black" />
               </g>
             </g>
-            <g transform="translate(240, 0)">
-              <text x="30" y="85" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">P I</text>
-              {/* Gru */}
-              <g transform="translate(90, 20)">
-                <rect x="50" y="100" width="30" height="6" fill="#4b5563" />
-                <line x1="65" y1="100" x2="65" y2="30" stroke="#4b5563" strokeWidth="3" />
-                <line x1="20" y1="30" x2="110" y2="30" stroke="#374151" strokeWidth="3" />
-                <text x="65" y="18" fill="var(--se-red)" fontSize="16" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">U = O</text>
+            <g transform="translate(210, 0)">
+              <text x="15" y="85" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">P I</text>
+              {/* Gru Edile dettagliata a traliccio */}
+              <g transform="translate(75, 10)">
+                {/* Base zavorra */}
+                <rect x="45" y="125" width="40" height="12" fill="#374151" rx="2" />
+                
+                {/* Torre a traliccio */}
+                <rect x="58" y="30" width="14" height="95" fill="none" stroke="#2563eb" strokeWidth="2" />
+                <line x1="58" y1="30" x2="72" y2="49" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="72" y1="30" x2="58" y2="49" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="58" y1="49" x2="72" y2="68" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="72" y1="49" x2="58" y2="68" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="58" y1="68" x2="72" y2="87" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="72" y1="68" x2="58" y2="87" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="58" y1="87" x2="72" y2="106" stroke="#2563eb" strokeWidth="1.2" />
+                <line x1="72" y1="87" x2="58" y2="106" stroke="#2563eb" strokeWidth="1.2" />
+
+                {/* Cabina guida gialla */}
+                <rect x="53" y="22" width="24" height="14" fill="#fbbf24" stroke="#d97706" strokeWidth="1.5" rx="2" />
+                <circle cx="69" cy="29" r="3" fill="#1f2937" />
+
+                {/* Braccio a traliccio e Tiranti */}
+                <line x1="15" y1="20" x2="160" y2="20" stroke="#2563eb" strokeWidth="2.5" />
+                <line x1="15" y1="26" x2="160" y2="26" stroke="#2563eb" strokeWidth="1.5" />
+                <line x1="65" y1="8" x2="65" y2="20" stroke="#2563eb" strokeWidth="2" />
+                <line x1="65" y1="8" x2="25" y2="20" stroke="#2563eb" strokeWidth="1.5" />
+                <line x1="65" y1="8" x2="140" y2="20" stroke="#2563eb" strokeWidth="1.5" />
+
+                {/* Contrappeso */}
+                <rect x="20" y="22" width="22" height="12" fill="#4b5563" stroke="#1f2937" strokeWidth="1" rx="1" />
+
+                {/* Carrello e Cavo con Gancio rosso */}
+                <rect x="125" y="24" width="10" height="6" fill="#1f2937" />
+                <line x1="130" y1="30" x2="130" y2="70" stroke="#374151" strokeWidth="1.5" />
+                <path d="M 130 70 Q 130 80 125 80 Q 120 80 121 74" stroke="#dc2626" strokeWidth="2.2" fill="none" />
+
+                {/* Badge U = O */}
+                <rect x="95" y="0" width="55" height="18" fill="#fef2f2" stroke="#fca5a5" strokeWidth="1" rx="3" />
+                <text x="122.5" y="13" fill="var(--se-red)" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">U = O</text>
               </g>
             </g>
           </svg>
@@ -89,23 +121,36 @@ export const RebusGame: React.FC<RebusGameProps> = ({ data, issueId, onComplete,
       if (item.id === 'b') { // MIRA LA RETINA
         return (
           <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            <line x1="220" y1="10" x2="220" y2="150" stroke="#e5e7eb" strokeWidth="1.5" strokeDasharray="4 4" />
+            <line x1="170" y1="10" x2="170" y2="150" stroke="#e5e7eb" strokeWidth="1.5" strokeDasharray="4 4" />
             {/* Bersaglio (Mira) */}
-            <g transform="translate(20, 20)">
-              <circle cx="80" cy="60" r="38" fill="none" stroke="#374151" strokeWidth="2" />
-              <circle cx="80" cy="60" r="24" fill="none" stroke="#374151" strokeWidth="1.5" />
-              <circle cx="80" cy="60" r="10" fill="#ef4444" />
-              <line x1="80" y1="15" x2="80" y2="105" stroke="#374151" strokeWidth="1.5" />
-              <line x1="35" y1="60" x2="125" y2="60" stroke="#374151" strokeWidth="1.5" />
+            <g transform="translate(10, 20)">
+              <circle cx="70" cy="60" r="38" fill="none" stroke="#374151" strokeWidth="2" />
+              <circle cx="70" cy="60" r="24" fill="none" stroke="#374151" strokeWidth="1.5" />
+              <circle cx="70" cy="60" r="10" fill="#ef4444" />
+              <line x1="70" y1="15" x2="70" y2="105" stroke="#374151" strokeWidth="1.5" />
+              <line x1="25" y1="60" x2="115" y2="60" stroke="#374151" strokeWidth="1.5" />
             </g>
-            {/* Rete tennis (E=I) */}
-            <g transform="translate(240, 20)">
-              <text x="20" y="70" fill="var(--se-red)" fontSize="28" fontFamily="var(--font-serif)" fontWeight="bold">L A</text>
-              {/* Net */}
-              <rect x="75" y="40" width="110" height="50" fill="none" stroke="#374151" strokeWidth="2" />
-              <path d="M 75 40 L 125 90 M 100 40 L 150 90 M 125 40 L 175 90 M 185 40 L 135 90 M 160 40 L 110 90 M 135 40 L 85 90" stroke="#9ca3af" strokeWidth="1" />
-              <text x="130" y="30" fill="var(--se-red)" fontSize="16" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">E = I</text>
-              <text x="205" y="70" fill="var(--se-red)" fontSize="28" fontFamily="var(--font-serif)" fontWeight="bold">N A</text>
+            {/* L A + DUE RETI (RETI) + N A */}
+            <g transform="translate(180, 20)">
+              <text x="10" y="70" fill="var(--se-red)" fontSize="28" fontFamily="var(--font-serif)" fontWeight="bold">L A</text>
+              
+              {/* Rete 1 */}
+              <g transform="translate(60, 35)">
+                <rect x="0" y="0" width="65" height="48" fill="#f8fafc" stroke="#2563eb" strokeWidth="2" rx="3" />
+                <path d="M 0 0 L 48 48 M 18 0 L 65 47 M 36 0 L 65 29 M 65 0 L 17 48 M 47 0 L 0 47 M 28 0 L 0 28" stroke="#94a3b8" strokeWidth="1.2" />
+                <line x1="-4" y1="-5" x2="-4" y2="58" stroke="#374151" strokeWidth="2.5" />
+                <line x1="69" y1="-5" x2="69" y2="58" stroke="#374151" strokeWidth="2.5" />
+              </g>
+
+              {/* Rete 2 */}
+              <g transform="translate(145, 35)">
+                <rect x="0" y="0" width="65" height="48" fill="#f8fafc" stroke="#2563eb" strokeWidth="2" rx="3" />
+                <path d="M 0 0 L 48 48 M 18 0 L 65 47 M 36 0 L 65 29 M 65 0 L 17 48 M 47 0 L 0 47 M 28 0 L 0 28" stroke="#94a3b8" strokeWidth="1.2" />
+                <line x1="-4" y1="-5" x2="-4" y2="58" stroke="#374151" strokeWidth="2.5" />
+                <line x1="69" y1="-5" x2="69" y2="58" stroke="#374151" strokeWidth="2.5" />
+              </g>
+
+              <text x="235" y="70" fill="var(--se-red)" fontSize="28" fontFamily="var(--font-serif)" fontWeight="bold">N A</text>
             </g>
           </svg>
         );
