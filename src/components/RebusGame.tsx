@@ -158,17 +158,38 @@ export const RebusGame: React.FC<RebusGameProps> = ({ data, issueId, onComplete,
       // Rebus C: LA STEREOPSI
       return (
         <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-          <text x="60" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">L A</text>
-          {/* Stereo Hi-Fi */}
-          <g transform="translate(130, 25)">
-            <rect x="20" y="20" width="200" height="85" fill="#fcfcfc" stroke="#374151" strokeWidth="3" rx="6" />
-            <circle cx="60" cy="62" r="26" fill="#e5e7eb" stroke="#374151" strokeWidth="1.8" />
-            <circle cx="60" cy="62" r="12" fill="#1f2937" />
-            <circle cx="180" cy="62" r="26" fill="#e5e7eb" stroke="#374151" strokeWidth="1.8" />
-            <circle cx="180" cy="62" r="12" fill="#1f2937" />
-            <rect x="105" y="35" width="30" height="15" fill="#d1d5db" rx="1.5" />
+          {/* Spartito musicale (Pentagramma) con la nota LA */}
+          <g transform="translate(15, 25)">
+            <rect x="0" y="0" width="115" height="95" fill="white" stroke="#374151" strokeWidth="2" rx="4" />
+            
+            {/* 5 Linee del pentagramma */}
+            <line x1="10" y1="22" x2="105" y2="22" stroke="#475569" strokeWidth="1.2" />
+            <line x1="10" y1="34" x2="105" y2="34" stroke="#475569" strokeWidth="1.2" />
+            <line x1="10" y1="46" x2="105" y2="46" stroke="#475569" strokeWidth="1.2" />
+            <line x1="10" y1="58" x2="105" y2="58" stroke="#475569" strokeWidth="1.2" />
+            <line x1="10" y1="70" x2="105" y2="70" stroke="#475569" strokeWidth="1.2" />
+
+            {/* Chiave di Sol (Violino) */}
+            <text x="14" y="68" fill="#1e293b" fontSize="42" fontFamily="serif">𝄞</text>
+
+            {/* Nota LA nel 2° spazio (tra y=46 e y=58 -> y=52) */}
+            <g transform="translate(75, 52)">
+              <ellipse cx="0" cy="0" rx="6.5" ry="4.5" fill="#dc2626" transform="rotate(-20 0 0)" />
+              <line x1="5.5" y1="0" x2="5.5" y2="-28" stroke="#dc2626" strokeWidth="2" />
+            </g>
           </g>
-          <text x="380" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">P S I</text>
+
+          {/* Stereo Hi-Fi */}
+          <g transform="translate(145, 25)">
+            <rect x="20" y="20" width="190" height="85" fill="#fcfcfc" stroke="#374151" strokeWidth="3" rx="6" />
+            <circle cx="55" cy="62" r="25" fill="#e5e7eb" stroke="#374151" strokeWidth="1.8" />
+            <circle cx="55" cy="62" r="11" fill="#1f2937" />
+            <circle cx="175" cy="62" r="25" fill="#e5e7eb" stroke="#374151" strokeWidth="1.8" />
+            <circle cx="175" cy="62" r="11" fill="#1f2937" />
+            <rect x="100" y="35" width="30" height="15" fill="#d1d5db" rx="1.5" />
+          </g>
+
+          <text x="385" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">P S I</text>
         </svg>
       );
     }
