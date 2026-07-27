@@ -176,15 +176,35 @@ export const renderSceneContentHelper = (sceneType: string, isSideB: boolean) =>
       <polygon points="320,165 340,165 330,145" fill={isSideB ? "#ec4899" : "#3b82f6"} opacity="0.8" stroke={isSideB ? "#be185d" : "#1d4ed8"} strokeWidth="1" />
       
       {/* Pianta in vaso */}
-      <polygon points="30,260 46,260 41,285 35,285" fill="#b45309" />
-      <path d="M 38 260 Q 30 240 25 230" stroke="#15803d" strokeWidth="2" fill="none" />
-      <path d="M 38 260 Q 42 235 45 225" stroke="#15803d" strokeWidth="2" fill="none" />
-      <path d="M 38 260 Q 28 220 20 210" stroke="#15803d" strokeWidth="2" fill="none" />
-      <path d="M 38 260 Q 38 215 40 205" stroke="#15803d" strokeWidth="2" fill="none" />
-      <path d="M 25 230 C 20 232, 18 228, 25 230 Z" fill="#22c55e" />
-      <path d="M 45 225 C 48 220, 52 225, 45 225 Z" fill="#22c55e" />
-      <path d="M 20 210 C 14 212, 16 205, 20 210 Z" fill="#22c55e" />
-      {!isSideB && <path d="M 40 205 C 38 198, 44 200, 40 205 Z" fill="#15803d" />}
+      <polygon points="28,260 48,260 43,288 33,288" fill="#b45309" stroke="#78350f" strokeWidth="1.5" />
+      <path d="M 38 260 Q 26 235 20 215" stroke="#15803d" strokeWidth="2.5" fill="none" />
+      <path d="M 38 260 Q 46 235 52 215" stroke="#15803d" strokeWidth="2.5" fill="none" />
+      <path d="M 38 260 Q 38 215 39 198" stroke="#15803d" strokeWidth="2.5" fill="none" />
+      
+      <ellipse cx="20" cy="225" rx="8" ry="4" fill="#22c55e" transform="rotate(-30 20 225)" />
+      <ellipse cx="52" cy="225" rx="8" ry="4" fill="#22c55e" transform="rotate(30 52 225)" />
+      <ellipse cx="32" cy="235" rx="8" ry="4" fill="#22c55e" transform="rotate(-15 32 235)" />
+      <ellipse cx="44" cy="235" rx="8" ry="4" fill="#22c55e" transform="rotate(15 44 235)" />
+
+      {/* Grandi Fiori Rossi (presenti SOLO nel Disegno A a sinistra) */}
+      {!isSideB && (
+        <g>
+          {/* Fiore principale in cima */}
+          <g transform="translate(39, 195)">
+            <circle cx="0" cy="0" r="11" fill="#ef4444" stroke="#b91c1c" strokeWidth="1.5" />
+            <circle cx="-7" cy="0" r="6" fill="#dc2626" />
+            <circle cx="7" cy="0" r="6" fill="#dc2626" />
+            <circle cx="0" cy="-7" r="6" fill="#dc2626" />
+            <circle cx="0" cy="7" r="6" fill="#dc2626" />
+            <circle cx="0" cy="0" r="4.5" fill="#fde047" />
+          </g>
+          {/* Secondo fiore a sinistra */}
+          <g transform="translate(19, 212)">
+            <circle cx="0" cy="0" r="8" fill="#ef4444" stroke="#b91c1c" strokeWidth="1.2" />
+            <circle cx="0" cy="0" r="3" fill="#fde047" />
+          </g>
+        </g>
+      )}
 
       {/* Sole */}
       {!isSideB && <circle cx="280" cy="35" r="10" fill="#eab308" />}

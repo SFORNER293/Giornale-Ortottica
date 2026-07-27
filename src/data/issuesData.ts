@@ -211,7 +211,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { id: 1, x: 90, y: 75, radius: 22, description: "Orientamento della lettera E sull'ottotipo" },
         { id: 2, x: 270, y: 120, radius: 22, description: "Colore del logo Vision AI sullo schermo" },
         { id: 3, x: 330, y: 155, radius: 18, description: "Colore del prisma sul tavolo" },
-        { id: 4, x: 40, y: 205, radius: 20, description: "Foglia superiore della pianta in vaso" },
+        { id: 4, x: 40, y: 205, radius: 25, description: "Grandi fiori rossi in cima alla pianta in vaso" },
         { id: 5, x: 280, y: 35, radius: 22, description: "Sole dietro la nuvola fuori dalla finestra" },
         { id: 6, x: 160, y: 250, radius: 22, description: "Gamba centrale dello sgabello" },
         { id: 7, x: 180, y: 52, radius: 18, description: "Colore dell'iride nel quadro dell'occhio" }
