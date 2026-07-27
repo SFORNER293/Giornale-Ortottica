@@ -130,13 +130,33 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, issueId = 1,
     }
   }, [userLetters, data.clues, correctLetters, GRID_SIZE]);
 
+  const justSelectedFromClueRef = useRef(false);
+
   const handleCellClick = (r: number, c: number) => {
     if (isBlackCell(r, c) || isCompleted) return;
-    
+
+    if (justSelectedFromClueRef.current) {
+      justSelectedFromClueRef.current = false;
+      return;
+    }
+
+    const hasAcross = data.clues.some(clue => clue.direction === 'across' && clue.row === r && c >= clue.col && c < clue.col + clue.word.length);
+    const hasDown = data.clues.some(clue => clue.direction === 'down' && clue.col === c && r >= clue.row && r < clue.row + clue.word.length);
+
     if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
-      setActiveDirection(prev => prev === 'across' ? 'down' : 'across');
+      if (hasAcross && hasDown) {
+        setActiveDirection(prev => prev === 'across' ? 'down' : 'across');
+      }
     } else {
       setSelectedCell({ r, c });
+      if (hasAcross && !hasDown) {
+        setActiveDirection('across');
+      } else if (hasDown && !hasAcross) {
+        setActiveDirection('down');
+      } else if (hasAcross && hasDown) {
+        if (activeDirection === 'down' && !hasDown) setActiveDirection('across');
+        if (activeDirection === 'across' && !hasAcross) setActiveDirection('down');
+      }
     }
   };
 
@@ -238,24 +258,37 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, issueId = 1,
     } else if (e.key === 'ArrowRight') {
       let nextC = c + 1;
       while (nextC < GRID_SIZE && isBlackCell(r, nextC)) nextC++;
-      if (nextC < GRID_SIZE) setSelectedCell({ r, c: nextC });
+      if (nextC < GRID_SIZE) {
+        setSelectedCell({ r, c: nextC });
+        setActiveDirection('across');
+      }
     } else if (e.key === 'ArrowLeft') {
       let nextC = c - 1;
       while (nextC >= 0 && isBlackCell(r, nextC)) nextC--;
-      if (nextC >= 0) setSelectedCell({ r, c: nextC });
+      if (nextC >= 0) {
+        setSelectedCell({ r, c: nextC });
+        setActiveDirection('across');
+      }
     } else if (e.key === 'ArrowDown') {
       let nextR = r + 1;
       while (nextR < GRID_SIZE && isBlackCell(nextR, c)) nextR++;
-      if (nextR < GRID_SIZE) setSelectedCell({ r: nextR, c });
+      if (nextR < GRID_SIZE) {
+        setSelectedCell({ r: nextR, c });
+        setActiveDirection('down');
+      }
     } else if (e.key === 'ArrowUp') {
       let nextR = r - 1;
       while (nextR >= 0 && isBlackCell(nextR, c)) nextR--;
-      if (nextR >= 0) setSelectedCell({ r: nextR, c });
+      if (nextR >= 0) {
+        setSelectedCell({ r: nextR, c });
+        setActiveDirection('down');
+      }
     }
   };
 
   const handleClueClick = (clue: CrosswordClue) => {
     if (isCompleted) return;
+    justSelectedFromClueRef.current = true;
     setSelectedCell({ r: clue.row, c: clue.col });
     setActiveDirection(clue.direction);
     inputRefs.current[`${clue.row}-${clue.col}`]?.focus();
