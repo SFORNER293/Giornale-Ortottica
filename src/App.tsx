@@ -16,12 +16,50 @@ import {
   BookOpen,
   Calendar,
   Sparkles,
-  BookCheck
+  BookCheck,
+  Lock,
+  Unlock,
+  Key
 } from 'lucide-react';
 
 function App() {
   const [selectedIssueId, setSelectedIssueId] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
+
+  // Admin / Editor unlock mode
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('admin') === 'true' || localStorage.getItem('ortottica_admin_mode') === 'true';
+  });
+  const [showAdminModal, setShowAdminModal] = useState<boolean>(false);
+  const [adminPinInput, setAdminPinInput] = useState<string>('');
+  const [pinError, setPinError] = useState<boolean>(false);
+  const [lockedNoticeIssue, setLockedNoticeIssue] = useState<WeeklyIssue | null>(null);
+
+  const handlePinSubmit = () => {
+    if (adminPinInput === '1234' || adminPinInput.toLowerCase() === 'admin' || adminPinInput.toLowerCase() === 'visionai') {
+      setIsAdmin(true);
+      localStorage.setItem('ortottica_admin_mode', 'true');
+      setShowAdminModal(false);
+      setAdminPinInput('');
+      setPinError(false);
+      if (lockedNoticeIssue) {
+        setSelectedIssueId(lockedNoticeIssue.id);
+        setLockedNoticeIssue(null);
+      }
+    } else {
+      setPinError(true);
+    }
+  };
+
+  const toggleAdminMode = () => {
+    if (isAdmin) {
+      setIsAdmin(false);
+      localStorage.removeItem('ortottica_admin_mode');
+    } else {
+      setShowAdminModal(true);
+    }
+  };
 
   // Store completion state per issue
   const [completedGamesByIssue, setCompletedGamesByIssue] = useState<{
@@ -67,37 +105,68 @@ function App() {
     <div id="root">
       {/* Top Edition Selector Bar */}
       <div className="issue-selector-bar">
-        <div className="issue-selector-title">
-          <Calendar size={15} />
-          <span>Edizioni di Agosto 2026:</span>
+        <div className="issue-selector-title" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Calendar size={15} />
+            <span>Edizioni di Agosto 2026:</span>
+          </div>
+
+          {isAdmin ? (
+            <button 
+              onClick={toggleAdminMode}
+              className="admin-badge-btn active"
+              title="Modalità Editore Attiva: Tutti i 4 volumi sbloccati. Clicca per tornare alla vista utenti standard."
+            >
+              <Unlock size={12} />
+              <span>Vista Editore (Volumi Sbloccati)</span>
+            </button>
+          ) : (
+            <button 
+              onClick={toggleAdminMode}
+              className="admin-badge-btn"
+              title="Clicca per inserire il PIN editore e sbloccare i volumi in anteprima"
+            >
+              <Lock size={12} />
+              <span>Accedi Editore</span>
+            </button>
+          )}
         </div>
+
         <div className="issue-buttons-list">
           {ISSUES_DATA.map((issue) => {
             const isSelected = issue.id === selectedIssueId;
             const completedCount = getCompletedCount(issue.id);
             const isFullySolved = completedCount === 5;
+            const isLocked = !issue.isReleased && !isAdmin;
 
             return (
               <button
                 key={issue.id}
                 onClick={() => {
+                  if (isLocked) {
+                    setLockedNoticeIssue(issue);
+                    return;
+                  }
                   setSelectedIssueId(issue.id);
                   if (page !== 7) setPage(1);
                 }}
                 className={`issue-select-btn ${isSelected ? 'active' : ''}`}
                 style={{
                   borderColor: isSelected ? issue.badgeColor : 'var(--border-color)',
-                  backgroundColor: isSelected ? 'var(--paper-bg)' : 'rgba(255,255,255,0.7)'
+                  backgroundColor: isSelected ? 'var(--paper-bg)' : 'rgba(255,255,255,0.7)',
+                  opacity: isLocked ? 0.75 : 1
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span className="issue-badge" style={{ backgroundColor: issue.badgeColor }}>
-                    N. {issue.number}
+                  <span className="issue-badge" style={{ backgroundColor: isLocked ? '#6b7280' : issue.badgeColor }}>
+                    N. {issue.number} {isLocked && '🔒'}
                   </span>
                   <span className="issue-date-text">{issue.dateStr}</span>
                   {isFullySolved && <span style={{ color: 'var(--success-color)', fontWeight: 'bold' }}>★</span>}
                 </div>
-                <div className="issue-sub-title">{issue.title}</div>
+                <div className="issue-sub-title">
+                  {isLocked ? `In Uscita - ${issue.title}` : issue.title}
+                </div>
               </button>
             );
           })}
@@ -298,6 +367,77 @@ function App() {
           <ExternalLink size={12} />
         </a>
       </footer>
+
+      {/* Modal quando un utente clicca su un volume bloccato */}
+      {lockedNoticeIssue && (
+        <div className="admin-modal-overlay" onClick={() => setLockedNoticeIssue(null)}>
+          <div className="admin-modal-box" onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#b45309', marginBottom: '10px' }}>
+              <Lock size={24} />
+              <h3 style={{ margin: 0, fontSize: '18px', fontFamily: 'var(--font-serif)' }}>
+                Volume N. {lockedNoticeIssue.number} in preparazione
+              </h3>
+            </div>
+            <p style={{ margin: '8px 0', fontSize: '14px', lineHeight: '1.5', color: 'var(--ink-primary)' }}>
+              Questo numero non è ancora stato pubblicato per gli utenti!
+            </p>
+            <div style={{ backgroundColor: 'var(--paper-bg)', padding: '10px', borderRadius: '6px', border: '1px stroke var(--border-color)', margin: '12px 0', fontSize: '13px' }}>
+              <div><strong>Titolo:</strong> {lockedNoticeIssue.title}</div>
+              <div><strong>Data di Uscita Prevista:</strong> {lockedNoticeIssue.dateStr}</div>
+            </div>
+            <p style={{ fontSize: '12px', color: 'var(--ink-secondary)', fontStyle: 'italic', margin: '0 0 16px 0' }}>
+              Sei l'autore del Giornale? Puoi sbloccare subito tutti i volumi per testarli e modificarli prima del lancio ufficiale!
+            </p>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button className="nav-button" onClick={() => setLockedNoticeIssue(null)}>Chiudi</button>
+              <button 
+                className="nav-button active" 
+                onClick={() => {
+                  setLockedNoticeIssue(null);
+                  setShowAdminModal(true);
+                }}
+              >
+                <Key size={14} style={{ marginRight: '4px' }} />
+                Sblocca come Editore
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Inserimento PIN Admin */}
+      {showAdminModal && (
+        <div className="admin-modal-overlay" onClick={() => setShowAdminModal(false)}>
+          <div className="admin-modal-box" onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--se-blue)', marginBottom: '10px' }}>
+              <Key size={22} />
+              <h3 style={{ margin: 0, fontSize: '18px', fontFamily: 'var(--font-serif)' }}>Modalità Editore / Autore</h3>
+            </div>
+            <p style={{ margin: '0 0 12px 0', fontSize: '13px', color: 'var(--ink-secondary)' }}>
+              Inserisci il PIN editore per sbloccare e modificare in anteprima tutti i 4 volumi (PIN predefinito: <strong style={{ color: 'var(--se-red)' }}>1234</strong>):
+            </p>
+            <input 
+              type="password" 
+              value={adminPinInput}
+              onChange={e => {
+                setAdminPinInput(e.target.value);
+                setPinError(false);
+              }}
+              placeholder="Inserisci PIN (es. 1234)"
+              style={{ width: '100%', padding: '8px 12px', fontSize: '14px', borderRadius: '4px', border: pinError ? '2px solid var(--se-red)' : '1px solid var(--border-color)', marginBottom: '10px', boxSizing: 'border-box' }}
+              onKeyDown={e => {
+                if (e.key === 'Enter') handlePinSubmit();
+              }}
+              autoFocus
+            />
+            {pinError && <div style={{ color: 'var(--se-red)', fontSize: '12px', marginBottom: '10px', fontWeight: 'bold' }}>PIN errato! Riprova con 1234.</div>}
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button className="nav-button" onClick={() => setShowAdminModal(false)}>Annulla</button>
+              <button className="nav-button active" onClick={handlePinSubmit}>Attiva Modo Editore</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

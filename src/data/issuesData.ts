@@ -102,6 +102,7 @@ export interface WeeklyIssue {
   theme: string;
   slogan: string;
   badgeColor: string;
+  isReleased: boolean;
   targetData: TargetData;
   crosswordData: CrosswordData;
   wordSearchData: WordSearchData;
@@ -123,6 +124,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     theme: "Saccadi, Inseguimenti, Fovea & Ambliopia",
     slogan: "La rivista di riabilitazione visiva che vanta innumerevoli tentativi di accomodazione!",
     badgeColor: "#0b457e",
+    isReleased: true,
     targetData: {
       subtitle: "Procedi dal primo termine esterno (OTTOTIPO) fino al centro (VISIONALE) collegando esclusivamente concetti clinici ed anatomici dell'oculomotricità!",
       startWord: "Ottotipo",
@@ -271,6 +273,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     theme: "Cover Test, Esotropia, Exotropia & Prismi",
     slogan: "Perché allineare lo sguardo è un'arte che richiede la giusta diottria prismatica!",
     badgeColor: "#c22026",
+    isReleased: false,
     targetData: {
       subtitle: "Procedi dal primo termine esterno (OCCLUSORE) fino al centro (STRABISMO) collegando i concetti ortottici!",
       startWord: "Occlusore",
@@ -415,6 +418,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     theme: "I 3 Gradi di Worth: Percezione, Fusione e Stereopsi",
     slogan: "Dalla percezione simultanea alla fusione 3D: il magico mondo del Sinottoforo!",
     badgeColor: "#16a34a",
+    isReleased: false,
     targetData: {
       subtitle: "Procedi dal primo termine (SINOTTOFORO) al centro (BINOCULARITÀ) percorrendo i 3 Gradi di Worth!",
       startWord: "Sinottoforo",
@@ -558,6 +562,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     theme: "Cornea, Cristallino, Vizi di Rifrazione e Campo Visivo",
     slogan: "Dalla rifrazione alla retina: esplora le meraviglie ottiche dell'occhio humano!",
     badgeColor: "#7c3aed",
+    isReleased: false,
     targetData: {
       subtitle: "Procedi dal primo termine (CORNEA) fino al centro (OFTALMOLOGIA) collegando i concetti ottici!",
       startWord: "Cornea",
