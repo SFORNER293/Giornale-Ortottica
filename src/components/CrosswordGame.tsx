@@ -9,49 +9,11 @@ interface CrosswordGameProps {
   isCompleted: boolean;
 }
 
-const PREFILLED_POSITIONS: { [key: number]: { r: number; c: number; letter: string }[] } = {
-  1: [
-    { r: 0, c: 0, letter: 'O' },
-    { r: 4, c: 4, letter: 'T' },
-    { r: 6, c: 0, letter: 'P' },
-    { r: 12, c: 0, letter: 'F' },
-    { r: 14, c: 10, letter: 'V' }
-  ],
-  2: [
-    { r: 0, c: 0, letter: 'E' },
-    { r: 4, c: 4, letter: 'K' },
-    { r: 6, c: 0, letter: 'S' },
-    { r: 12, c: 0, letter: 'F' },
-    { r: 14, c: 0, letter: 'M' }
-  ],
-  3: [
-    { r: 0, c: 0, letter: 'S' },
-    { r: 4, c: 4, letter: 'F' },
-    { r: 6, c: 7, letter: 'S' },
-    { r: 12, c: 0, letter: 'M' },
-    { r: 14, c: 0, letter: 'G' }
-  ],
-  4: [
-    { r: 0, c: 0, letter: 'C' },
-    { r: 4, c: 4, letter: 'C' },
-    { r: 6, c: 0, letter: 'R' },
-    { r: 12, c: 0, letter: 'F' },
-    { r: 14, c: 0, letter: 'I' }
-  ]
-};
-
 export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, issueId = 1, onComplete, isCompleted }) => {
   const GRID_SIZE = data.gridSize || 15;
 
   const createInitialGrid = () => {
-    const grid: string[][] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
-    const hints = PREFILLED_POSITIONS[issueId] || PREFILLED_POSITIONS[1];
-    hints.forEach(h => {
-      if (h.r < GRID_SIZE && h.c < GRID_SIZE) {
-        grid[h.r][h.c] = h.letter;
-      }
-    });
-    return grid;
+    return Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(''));
   };
 
   const [userLetters, setUserLetters] = useState<string[][]>(createInitialGrid);
@@ -89,9 +51,8 @@ export const CrosswordGame: React.FC<CrosswordGameProps> = ({ data, issueId = 1,
     return correctLetters[r][c] === '';
   };
 
-  const isPrefilledCell = (r: number, c: number): boolean => {
-    const hints = PREFILLED_POSITIONS[issueId] || PREFILLED_POSITIONS[1];
-    return hints.some(h => h.r === r && h.c === c);
+  const isPrefilledCell = (_r: number, _c: number): boolean => {
+    return false;
   };
 
   const checkWordCorrect = (clue: CrosswordClue, currentGrid: string[][]) => {
