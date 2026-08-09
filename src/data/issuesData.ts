@@ -386,8 +386,8 @@ export const ISSUES_DATA: WeeklyIssue[] = [
           patientInfo: "Paziente: Uomo di 38 anni.",
           history: "Anamnesi: Riferisce insorgenza acuta di diplopia orizzontale binoculare avvertita principalmente durante la visione verso destra a seguito di trauma.",
           examination: "Esame Ortottico: Cover test evidenzia esotropia dell'occhio destro in posizione primaria (+18Δ) che aumenta significativamente nella destroversione. Lo Schermo di Hess-Lancaster mostra marcata ipofunzione del muscolo Retto Laterale destro e iperfunzione del Retto Mediale sinistro.",
-          question: "Domanda Clinica: Qual è la diagnosi e la strategia di compensazione prismatica immediata?",
-          solution: "Diagnosi: Paresi del VI nervo cranico (abducente) dell'occhio destro. Trattamento Ortottico: 1) Applicazione immediata di un Prisma di Fresnel a base esterna sull'occhio destro per neutralizzare la diplopia e ripristinare la visione binoculare singola in posizione primaria; 2) Esercizi di stretching e stimolazione oculomotoria per prevenire la contrattura secondaria del retto mediale antagonista."
+          question: "Domanda Clinica: Qual è la diagnosi e il corretto approccio terapeutico ortottico in fase acuta e nel successivo follow-up?",
+          solution: "Diagnosi: Paresi del VI nervo cranico (abducente) dell'occhio destro. Gestione Ortottica Corretta: 1) In fase acuta si consiglia il bendaggio/occlusione dell'occhio paretico per eliminare la diplopia ed il disturbo visivo, poiché le paresi acute tendono nella maggior parte dei casi ad una risoluzione spontanea; 2) Se dopo svariati mesi la situazione clinica si stabilizza mantenendo un angolo di deviazione residuo, si valuterà l'applicazione di un prisma Press-On (Fresnel) sull'occhiale per il ripristino della visione binoculare."
         }
       ],
       deepDives: [
