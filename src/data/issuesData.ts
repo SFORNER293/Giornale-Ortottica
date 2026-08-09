@@ -273,7 +273,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     theme: "Cover Test, Esotropia, Exotropia & Prismi",
     slogan: "Perché allineare lo sguardo è un'arte che richiede la giusta diottria prismatica!",
     badgeColor: "#c22026",
-    isReleased: false,
+    isReleased: true,
     targetData: {
       subtitle: "Procedi dal primo termine esterno (OCCLUSORE) fino al centro (STRABISMO) collegando i concetti ortottici!",
       startWord: "Occlusore",
