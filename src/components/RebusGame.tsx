@@ -219,34 +219,63 @@ export const RebusGame: React.FC<RebusGameProps> = ({ data, issueId, onComplete,
       if (item.id === 'b') { // ESOTROPIA
         return (
           <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            <text x="50" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">E</text>
+            <text x="35" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">E</text>
             {/* Sole (SOLE LE=O) */}
-            <g transform="translate(90, 30)">
+            <g transform="translate(65, 30)">
               <circle cx="40" cy="50" r="28" fill="#fde047" stroke="#ca8a04" strokeWidth="2" />
               <line x1="40" y1="10" x2="40" y2="2" stroke="#ca8a04" strokeWidth="2.5" />
               <line x1="40" y1="90" x2="40" y2="98" stroke="#ca8a04" strokeWidth="2.5" />
               <line x1="0" y1="50" x2="-8" y2="50" stroke="#ca8a04" strokeWidth="2.5" />
               <line x1="80" y1="50" x2="88" y2="50" stroke="#ca8a04" strokeWidth="2.5" />
-              <text x="40" y="5" fill="var(--se-red)" fontSize="15" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">LE = O</text>
+              <text x="40" y="5" fill="var(--se-red)" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">LE = O</text>
             </g>
-            <text x="200" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">T R</text>
-            {/* Tabellone OPIA */}
-            <g transform="translate(280, 25)">
-              <rect x="20" y="20" width="80" height="70" fill="white" stroke="#334155" strokeWidth="2" />
-              <text x="60" y="55" fill="black" fontSize="16" fontFamily="monospace" fontWeight="bold" textAnchor="middle">OPIA</text>
+
+            {/* Treno a vapore (TRENO NO=P) */}
+            <g transform="translate(170, 30)">
+              {/* Carrozzeria e Cabina */}
+              <rect x="20" y="45" width="80" height="35" fill="#ef4444" stroke="#991b1b" strokeWidth="2" rx="3" />
+              <rect x="75" y="25" width="30" height="55" fill="#3b82f6" stroke="#1d4ed8" strokeWidth="2" rx="2" />
+              {/* Tetto cabina */}
+              <rect x="70" y="20" width="40" height="6" fill="#1e293b" rx="1" />
+              {/* Ciminiere e vapore */}
+              <rect x="32" y="30" width="12" height="16" fill="#374151" />
+              <circle cx="34" cy="22" r="5" fill="#e5e7eb" opacity="0.8" />
+              <circle cx="26" cy="14" r="8" fill="#e5e7eb" opacity="0.6" />
+              {/* Ruote */}
+              <circle cx="35" cy="80" r="10" fill="#1f2937" stroke="#4b5563" strokeWidth="2" />
+              <circle cx="65" cy="80" r="10" fill="#1f2937" stroke="#4b5563" strokeWidth="2" />
+              <circle cx="90" cy="80" r="12" fill="#1f2937" stroke="#4b5563" strokeWidth="2" />
+
+              <text x="60" y="5" fill="var(--se-red)" fontSize="14" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">NO = P</text>
             </g>
+
+            <text x="325" y="90" fill="var(--se-red)" fontSize="32" fontFamily="var(--font-serif)" fontWeight="bold">I A</text>
           </svg>
         );
       }
       // ANGOLO KAPPA
       return (
         <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-          {/* Drawing of an Angle */}
-          <g transform="translate(60, 30)">
-            <path d="M 10 80 L 100 80 L 70 10" stroke="#334155" strokeWidth="3.5" fill="none" />
-            <path d="M 40 80 A 30 30 0 0 0 32 58" fill="none" stroke="#ef4444" strokeWidth="2" strokeDasharray="3 2" />
+          {/* Disegno Angolo */}
+          <g transform="translate(30, 25)">
+            <rect x="0" y="0" width="130" height="100" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" rx="4" />
+            <path d="M 20 85 L 110 85 L 85 20" stroke="#0284c7" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M 50 85 A 30 30 0 0 0 42 61" fill="none" stroke="#ef4444" strokeWidth="2.5" strokeDasharray="3 2" />
+            <text x="65" y="75" fill="#ef4444" fontSize="14" fontWeight="bold">α</text>
           </g>
-          <text x="220" y="90" fill="var(--se-red)" fontSize="34" fontFamily="var(--font-serif)" fontWeight="bold">K A P P A</text>
+
+          <text x="180" y="85" fill="var(--se-red)" fontSize="36" fontFamily="var(--font-serif)" fontWeight="bold">+</text>
+
+          {/* Disegno Mantello / Cappa da Supereroe (CAPPA C=K) */}
+          <g transform="translate(240, 20)">
+            <path d="M 40 25 Q 70 20 100 25 Q 120 70 125 105 Q 70 95 15 105 Q 20 70 40 25 Z" fill="#dc2626" stroke="#991b1b" strokeWidth="2.5" />
+            {/* Colletto/Fermaglio */}
+            <circle cx="70" cy="22" r="7" fill="#fbbf24" stroke="#d97706" strokeWidth="1.5" />
+            {/* Pieghe del mantello */}
+            <path d="M 50 35 Q 60 70 55 100 M 90 35 Q 80 70 85 100" stroke="#b91c1c" strokeWidth="2" fill="none" />
+            
+            <text x="70" y="5" fill="var(--se-red)" fontSize="15" fontFamily="var(--font-mono)" fontWeight="bold" textAnchor="middle">C = K</text>
+          </g>
         </svg>
       );
     }

@@ -328,7 +328,10 @@ export const ISSUES_DATA: WeeklyIssue[] = [
         { number: 9, direction: 'across', word: 'KAPPA', clue: 'L angolo formato tra l asse visivo e l asse pupillare.', row: 6, col: 10 },
         { number: 10, direction: 'across', word: 'SACCADE', clue: 'Movimento oculare rapido di fissazione verso la mira.', row: 8, col: 0 },
         { number: 11, direction: 'across', word: 'TORSIONE', clue: 'Deviazione ciclotropica di rotazione attorno all asse visivo.', row: 10, col: 7 },
-        { number: 12, direction: 'across', word: 'STECCA', clue: 'Righello di prismi graduati per misurare la deviazione strabica.', row: 12, col: 6 }
+        { number: 12, direction: 'across', word: 'STECCA', clue: 'Righello di prismi graduati per misurare la deviazione strabica.', row: 12, col: 6 },
+        { number: 13, direction: 'down', word: 'LUCE', clue: 'Stimolo luminoso primario percepito dalla retina.', row: 5, col: 6 },
+        { number: 14, direction: 'across', word: 'VISUS', clue: 'Valore dell acuità visiva espresso in decimi.', row: 14, col: 0 },
+        { number: 15, direction: 'across', word: 'CONI', clue: 'Fotorecettori foveali per la percezione dei colori.', row: 14, col: 8 }
       ]
     },
     wordSearchData: {
@@ -360,8 +363,8 @@ export const ISSUES_DATA: WeeklyIssue[] = [
       sceneType: 'studio_strabismo',
       differences: [
         { id: 1, x: 80, y: 70, radius: 24, description: "Disegno dello Schermo di Hess (griglia rossa vs verde)" },
-        { id: 2, x: 260, y: 120, radius: 20, description: "Numerazione della stecca dei prismi sul tavolo" },
-        { id: 3, x: 320, y: 155, radius: 18, description: "Orientamento della lente a vetro striato di Bagolini" },
+        { id: 2, x: 260, y: 158, radius: 22, description: "Numerazione della stecca dei prismi sul tavolo" },
+        { id: 3, x: 330, y: 155, radius: 18, description: "Orientamento della lente a vetro striato di Bagolini" },
         { id: 4, x: 50, y: 200, radius: 20, description: "Filtro rosso di occlusione inserito nella montatura di prova" },
         { id: 5, x: 280, y: 40, radius: 22, description: "Posizione dello sguardo della mascotte (esotropia vs centrato)" },
         { id: 6, x: 160, y: 245, radius: 22, description: "Luce della torcia di fissazione tascabile (accesa vs spenta)" },
@@ -370,9 +373,9 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "Lettera C + Disegno Uovo (OVO V=V) + Lettere E R + Disegno Testa (A=T)", graphicDescription: "C + [Disegno Uovo (V=V)] + E R + [Disegno Testa (A=T)]" },
-        { id: 'b', title: "REBUS B", diagram: "9", expected: "ESOTROPIA", solutionFormatted: "ESOTROPIA", hint: "Lettera E + Disegno del Sole (LE=O) + Lettere T R + Disegno Tabellone (OPIA)", graphicDescription: "E + [Disegno Sole (LE=O)] + T R + [Disegno Ottotipo/OPIA]" },
-        { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno di un Angolo + Lettere K A P P A", graphicDescription: "[Disegno Angolo] + K A P P A" }
+        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "Lettera C + Disegno Uovo (OVO V=V) + Lettere E R + Disegno Testa (A=T)", graphicDescription: "C + [Disegno Uovo (OVO V=V)] + E R + [Disegno Testa (A=T)]" },
+        { id: 'b', title: "REBUS B", diagram: "9", expected: "ESOTROPIA", solutionFormatted: "ESOTROPIA", hint: "Lettera E + Disegno Sole (LE=O) + Disegno Treno (NO=P) + Lettere I A", graphicDescription: "E + [Disegno Sole (LE=O)] + [Disegno Treno (NO=P)] + I A" },
+        { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno dell'Angolo + Disegno della Cappa/Mantello (C=K)", graphicDescription: "[Disegno Angolo] + [Disegno Cappa (C=K)]" }
       ]
     },
     casesAndFactsData: {
