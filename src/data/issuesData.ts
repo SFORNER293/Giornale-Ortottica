@@ -373,9 +373,9 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "5   4", expected: "COVERTEST", solutionFormatted: "COVER TEST", hint: "Lettera C + Disegno Uovo (OVO V=V) + Lettere E R + Disegno Testa (A=T)", graphicDescription: "C + [Disegno Uovo (OVO V=V)] + E R + [Disegno Testa (A=T)]" },
-        { id: 'b', title: "REBUS B", diagram: "9", expected: "ESOTROPIA", solutionFormatted: "ESOTROPIA", hint: "Lettera E + Disegno Sole (LE=O) + Disegno Treno (NO=P) + Lettere I A", graphicDescription: "E + [Disegno Sole (LE=O)] + [Disegno Treno (NO=P)] + I A" },
-        { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno dell'Angolo + Disegno della Cappa/Mantello (C=K)", graphicDescription: "[Disegno Angolo] + [Disegno Cappa (C=K)]" }
+        { id: 'a', title: "REBUS A", diagram: "8", expected: "OCCHIALI", solutionFormatted: "OCCHIALI", hint: "Disegno di un Occhio + Disegno delle Ali di farfalla", graphicDescription: "[Disegno Occhio] + [Disegno Ali]" },
+        { id: 'b', title: "REBUS B", diagram: "2   4", expected: "LAMIRA", solutionFormatted: "LA MIRA", hint: "Lettere L A + Disegno del Bersaglio (Mira)", graphicDescription: "L A + [Disegno Bersaglio/Mira]" },
+        { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno dell Angolo + Lettere K A P P A", graphicDescription: "[Disegno Angolo] + K A P P A" }
       ]
     },
     casesAndFactsData: {
