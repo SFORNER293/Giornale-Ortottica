@@ -373,7 +373,7 @@ export const ISSUES_DATA: WeeklyIssue[] = [
     },
     rebusData: {
       items: [
-        { id: 'a', title: "REBUS A", diagram: "8", expected: "OCCHIALI", solutionFormatted: "OCCHIALI", hint: "Disegno di un Occhio + Disegno delle Ali di farfalla", graphicDescription: "[Disegno Occhio] + [Disegno Ali]" },
+        { id: 'a', title: "REBUS A", diagram: "8", expected: "OCCHIALI", solutionFormatted: "OCCHIALI", hint: "Disegno di due Occhi + Disegno della Farfalla con frecce che indicano le Ali", graphicDescription: "[Disegno 2 Occhi] + [Farfalla con 2 frecce sulle Ali]" },
         { id: 'b', title: "REBUS B", diagram: "2   4", expected: "LAMIRA", solutionFormatted: "LA MIRA", hint: "Lettere L A + Disegno del Bersaglio (Mira)", graphicDescription: "L A + [Disegno Bersaglio/Mira]" },
         { id: 'c', title: "REBUS C", diagram: "6   5", expected: "ANGOLOKAPPA", solutionFormatted: "ANGOLO KAPPA", hint: "Disegno dell Angolo + Lettere K A P P A", graphicDescription: "[Disegno Angolo] + K A P P A" }
       ]

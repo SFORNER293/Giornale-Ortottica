@@ -198,22 +198,40 @@ export const RebusGame: React.FC<RebusGameProps> = ({ data, issueId, onComplete,
       if (item.id === 'a') { // OCCHIALI
         return (
           <svg viewBox="0 0 500 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            {/* Occhio */}
-            <g transform="translate(40, 25)">
-              <path d="M 10 50 Q 70 10 130 50 Q 70 90 10 50 Z" fill="white" stroke="#374151" strokeWidth="3" />
-              <circle cx="70" cy="50" r="22" fill="#38bdf8" stroke="#0284c7" strokeWidth="2" />
-              <circle cx="70" cy="50" r="9" fill="black" />
+            {/* Due Occhi */}
+            <g transform="translate(15, 25)">
+              {/* Occhio 1 */}
+              <g>
+                <path d="M 10 50 Q 52 18 95 50 Q 52 82 10 50 Z" fill="white" stroke="#374151" strokeWidth="2.5" />
+                <circle cx="52" cy="50" r="16" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
+                <circle cx="52" cy="50" r="7" fill="black" />
+              </g>
+              {/* Occhio 2 */}
+              <g transform="translate(95, 0)">
+                <path d="M 10 50 Q 52 18 95 50 Q 52 82 10 50 Z" fill="white" stroke="#374151" strokeWidth="2.5" />
+                <circle cx="52" cy="50" r="16" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
+                <circle cx="52" cy="50" r="7" fill="black" />
+              </g>
             </g>
 
-            <text x="190" y="90" fill="var(--se-red)" fontSize="36" fontFamily="var(--font-serif)" fontWeight="bold">+</text>
+            <text x="220" y="90" fill="var(--se-red)" fontSize="34" fontFamily="var(--font-serif)" fontWeight="bold">+</text>
 
-            {/* Ali di farfalla */}
-            <g transform="translate(240, 20)">
-              <path d="M 60 55 Q 10 10 0 50 Q 15 80 60 65 Z" fill="#f43f5e" stroke="#be123c" strokeWidth="2" />
-              <path d="M 70 55 Q 120 10 130 50 Q 115 80 70 65 Z" fill="#f43f5e" stroke="#be123c" strokeWidth="2" />
-              <ellipse cx="65" cy="58" rx="6" ry="25" fill="#1e293b" />
-              <circle cx="65" cy="30" r="6" fill="#1e293b" />
-              <path d="M 63 26 Q 50 12 45 10 M 67 26 Q 80 12 85 10" stroke="#1e293b" strokeWidth="2" fill="none" />
+            {/* Farfalla con due frecce che indicano le ALI */}
+            <g transform="translate(260, 20)">
+              {/* Farfalla */}
+              <path d="M 70 55 Q 20 10 10 50 Q 25 85 70 65 Z" fill="#f43f5e" stroke="#be123c" strokeWidth="2" />
+              <path d="M 80 55 Q 130 10 140 50 Q 125 85 80 65 Z" fill="#f43f5e" stroke="#be123c" strokeWidth="2" />
+              <ellipse cx="75" cy="58" rx="6" ry="25" fill="#1e293b" />
+              <circle cx="75" cy="30" r="6" fill="#1e293b" />
+              <path d="M 73 26 Q 60 12 55 10 M 77 26 Q 90 12 95 10" stroke="#1e293b" strokeWidth="2" fill="none" />
+
+              {/* Freccia 1 (indica Ala Sinistra) */}
+              <line x1="-5" y1="15" x2="35" y2="40" stroke="#dc2626" strokeWidth="3" />
+              <polygon points="35,40 23,34 27,45" fill="#dc2626" />
+
+              {/* Freccia 2 (indica Ala Destra) */}
+              <line x1="155" y1="15" x2="115" y2="40" stroke="#dc2626" strokeWidth="3" />
+              <polygon points="115,40 123,45 127,34" fill="#dc2626" />
             </g>
           </svg>
         );
